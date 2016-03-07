@@ -96,6 +96,7 @@ alias py="python"
 unset GREP_OPTIONS
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias deploy='git checkout live; git merge --ff-only master; git checkout master; git push --all'
+alias unmount="devmon --unmount-all"
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
