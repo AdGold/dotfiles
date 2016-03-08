@@ -79,15 +79,15 @@ map <silent> tt :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
 
 " supertab setup
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+" let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
+" if has("gui_running")
+  " imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+" else " no gui
+  " if has("unix")
+    " inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  " endif
+" endif
 
 " haskell supertab
 let g:haskellmode_completion_ghc = 1
@@ -249,6 +249,9 @@ let NERDSpaceDelims=1
 let g:NERDCustomDelimiters = {
     \ 'haskell': { 'left': '--', 'leftAlt': '{-', 'rightAlt': '-}' },
 \ }
+
+map <C-B> <Space>c<Space>
+map <F2> <Space>c<Space>
 
 " Map f8 for Tagbar
 map <F8> :TagbarToggle<CR>
