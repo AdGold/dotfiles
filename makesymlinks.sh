@@ -2,12 +2,12 @@
 
 dotdir=~/dotfiles
 olddir=~/dotfiles_old
-dotfiles="vimrc zshrc Xresources gitconfig pythonstartup.py vimrc xinitrc xmodmaprc i3/config i3/i3status config/touchegg/touchegg.conf ssh/config"
+dotfiles="vimrc zshrc Xresources gitconfig pythonstartup.py vimrc xinitrc xmodmaprc i3/config i3/i3status config/touchegg/touchegg.conf ssh/config gtkrc-2.0 config/ranger/rc.conf"
 
 mkdir -p $olddir
 cd $dir
 
-dotfolders="ssh i3 config/touchegg"
+dotfolders="ssh i3 config/touchegg config/ranger"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
