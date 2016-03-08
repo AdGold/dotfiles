@@ -182,9 +182,6 @@ if 'PYTHONPATH' not in os.environ:
 EOF
 endif
 
-" bgbn fixes, re-add if things break
-
-if 0
 " QuickFix close function; :q should close a window *and* the accompanying
 " quickfix
 aug QFClose
