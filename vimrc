@@ -10,7 +10,7 @@ Bundle 'gmarik/Vundle.vim'
 " My Bundles here:
 "
 " original repos on github
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'groenewege/vim-less'
@@ -24,7 +24,9 @@ Bundle 'tpope/vim-abolish'
 Bundle 'mjio/jellybeans.vim'
 Bundle 'bling/vim-airline'
 Bundle 'octol/vim-cpp-enhanced-highlight'
-Bundle 'kien/rainbow_parentheses.vim'
+Plugin 'luochen1990/rainbow'
+Plugin 'tpope/vim-obsession'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'KabbAmine/zeavim.vim'
 
 Bundle 'ehamberg/vim-cute-python'
@@ -34,9 +36,11 @@ Bundle 'vim-scripts/Superior-Haskell-Interaction-Mode-SHIM'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc.vim'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'
 Bundle 'eagletmt/neco-ghc'
 Bundle 'scrooloose/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Bundle 'rdnetto/YCM-Generator'
 
 " vim-scripts
 Bundle 'L9'
@@ -71,6 +75,7 @@ autocmd FileType haskell map <F5> :GhciFile<C-M><C-W>wA
 map <silent> tw :GhcModTypeInsert<CR>
 map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
+map <silent> tt :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
 
 " supertab setup
@@ -89,7 +94,7 @@ let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " nerdtree
-map <Leader>n :NERDTreeToggle<CR>
+map <C-N> :NERDTreeToggle<CR>
 
 " The following maps the F8 key to toggle between hex and binary (while also setting the 
 " noeol and binary flags, so if you :write your file, vim doesn't perform unwanted conversions.
@@ -188,8 +193,6 @@ aug QFClose
   au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 aug END
 
-endif
-
 " Javascript folding that doesn't suck
 let javaScript_fold=1
 au FileType javascript call JavaScriptFold()
@@ -204,12 +207,24 @@ fu! SetCppConceals()
 endfunction
 au FileType cpp call SetCppConceals()
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+   \ 'ctermfgs': ['Darkblue', 'darkgreen', 'darkcyan', 'darkred', 'darkmagenta', 'brown', 'grey', 'lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+   \ 'separately': {
+   \   'cpp': {
+   \     'parentheses': [
+   \       'start=/(/ end=/)/ fold',
+   \       'start=/\[/ end=/\]/ fold',
+   \       'start=/{/ end=/}/ fold',
+   \       'start=/\(\(\<operator\>\)\@<!<\)\&[a-zA-Z0-9_]\@<=<\ze[^<]/ end=/>/']
+   \   }
+   \ }
+   \ }
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+
+" Syntastic settings
 
 " Make syntastic work nicer
 let g:syntastic_enable_balloons = 1
@@ -240,3 +255,11 @@ let g:NERDCustomDelimiters = {
 
 " Map f8 for Tagbar
 map <F8> :TagbarToggle<CR>
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" gitgutter config
+map <Leader>gt :GitGutterToggle<CR>
+map <Leader>gh :GitGutterLineHighlightsToggle<CR>
