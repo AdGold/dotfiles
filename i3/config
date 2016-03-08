@@ -139,19 +139,19 @@ bindsym $mod+XF86Back exec --no-startup-id urxvt -name 'kuake_urxvt' -g 150x20
 bindsym $mod+Shift+F1 exec --no-startup-id urxvt -name 'kuake_urxvt' -g 150x20
 
 # Volume control
-bindsym XF86AudioRaiseVolume exec ~/scripts/media.py up beep
-bindsym XF86AudioLowerVolume exec ~/scripts/media.py down beep
-bindsym Shift+XF86AudioRaiseVolume exec ~/scripts/media.py up
-bindsym Shift+XF86AudioLowerVolume exec ~/scripts/media.py down
-bindsym XF86AudioMute exec ~/scripts/media.py mute
+bindsym XF86AudioRaiseVolume exec ~/IRSerial/media.py up beep
+bindsym XF86AudioLowerVolume exec ~/IRSerial/media.py down beep
+bindsym Shift+XF86AudioRaiseVolume exec ~/IRSerial/media.py up
+bindsym Shift+XF86AudioLowerVolume exec ~/IRSerial/media.py down
+bindsym XF86AudioMute exec ~/IRSerial/media.py mute
 #bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+ && killall -USR1 i3blocks
 #bindsym XF86AudioLowerVolume exec amixer sset Master 2%- && killall -USR1 i3blocks
 #bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
 # Media player control
-bindsym XF86AudioPlay exec ~/scripts/media.py playpause
-bindsym XF86AudioNext exec ~/scripts/media.py next
-bindsym XF86AudioPrev exec ~/scripts/media.py prev
-bindsym XF86AudioStop exec ~/scripts/media.py stop
+bindsym XF86AudioPlay exec ~/IRSerial/media.py playpause
+bindsym XF86AudioNext exec ~/IRSerial/media.py next
+bindsym XF86AudioPrev exec ~/IRSerial/media.py prev
+bindsym XF86AudioStop exec ~/IRSerial/media.py stop
 
 # Screen brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
