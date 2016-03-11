@@ -95,6 +95,7 @@ bindsym $mod+Shift+g exec chromium-browser
 bindsym $mod+c exec "pgrep xchat || xchat"; exec "pgrep xchat && i3-msg [class=Xchat] focus"
 bindsym $mod+y exec "pgrep smtube || smtube"; exec "pgrep smtube && i3-msg [class=smtube] focus"
 bindsym $mod+m exec "pgrep clementine || clementine"; exec "pgrep clementine && i3-msg [class=Clementine] focus"
+bindsym $mod+t exec --no-startup-id "pgrep onboard || onboard"; exec --no-startup-id "pgrep onboard && killall onboard"
 bindsym $mod+Shift+Return exec pcmanfm
 bindsym XF86HomePage exec pcmanfm
 
@@ -139,10 +140,10 @@ bindsym $mod+XF86Back exec --no-startup-id urxvt -name 'kuake_urxvt' -g 150x20
 bindsym $mod+Shift+F1 exec --no-startup-id urxvt -name 'kuake_urxvt' -g 150x20
 
 # Volume control
-bindsym XF86AudioRaiseVolume exec ~/IRSerial/media.py up beep
-bindsym XF86AudioLowerVolume exec ~/IRSerial/media.py down beep
-bindsym Shift+XF86AudioRaiseVolume exec ~/IRSerial/media.py up
-bindsym Shift+XF86AudioLowerVolume exec ~/IRSerial/media.py down
+bindsym XF86AudioRaiseVolume exec ~/IRSerial/media.py up
+bindsym XF86AudioLowerVolume exec ~/IRSerial/media.py down
+bindsym Shift+XF86AudioRaiseVolume exec ~/IRSerial/media.py up beep
+bindsym Shift+XF86AudioLowerVolume exec ~/IRSerial/media.py down beep
 bindsym XF86AudioMute exec ~/IRSerial/media.py mute
 #bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+ && killall -USR1 i3blocks
 #bindsym XF86AudioLowerVolume exec amixer sset Master 2%- && killall -USR1 i3blocks
@@ -154,8 +155,8 @@ bindsym XF86AudioPrev exec ~/IRSerial/media.py prev
 bindsym XF86AudioStop exec ~/IRSerial/media.py stop
 
 # Screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc 3
+bindsym XF86MonBrightnessDown exec xbacklight -dec 3
 
 # Power control
 bindsym $mod+Shift+s exec systemctl suspend
@@ -299,10 +300,10 @@ exec --no-startup-id devmon &
 exec --no-startup-id touchegg &
 exec --no-startup-id nm-applet &
 exec --no-startup-id IRSerial &
-exec --no-startup-id killall ibus-x11
-#exec --no-startup-id google-chrome-stable
+# exec --no-startup-id killall ibus-x11 
+# exec --no-startup-id google-chrome-stable
 exec --no-startup-id i3-msg 'workspace $ws1; exec --no-startup-id chromium-browser'
-#exec --no-startup-id xchat
-#exec --no-startup-id hipchat
-#exec --no-startup-id i3-msg 'workspace $ws8; exec smtube'
+# exec --no-startup-id xchat
+# exec --no-startup-id hipchat
+# exec --no-startup-id i3-msg 'workspace $ws8; exec smtube'
 exec --no-startup-id i3lock -i ~/lock.png
