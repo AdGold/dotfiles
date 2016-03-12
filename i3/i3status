@@ -7,23 +7,24 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
+        output_format = "i3bar"
         colors = true
         color_separator = "#FF0000"
         interval = 1
 }
 
-#order += "disk /"
 #order += "load"
 order += "tztime local"
 order += "cpu_usage"
+order += "disk /"
 order += "wireless wlan0"
 order += "volume master"
 order += "battery 0"
 
 wireless wlan0 {
-        #format_up = "W: (%quality at %essid) %ip"
-        format_up = "W: %quality"
-        format_down = "W: down"
+        format_up = " %quality"
+        #format_up = "↹: %quality at %essid, %bitrate"
+        format_down = "⊠ down"
 }
 
 ethernet eth0 {
@@ -34,8 +35,12 @@ ethernet eth0 {
 
 battery 0 {
         format = "%status %percentage %remaining"
-	low_threshold = 20
+        status_chr = "☼"
+        status_bat = "⚡"
+        status_full = "☀"
+        low_threshold = 20
         threshold_type = time
+        integer_battery_capacity = true
 }
 
 tztime local {
@@ -47,16 +52,17 @@ load {
 }
 
 disk "/" {
-        format = "%avail"
+        format = "⛃ %avail"
 }
 
 volume master {
-        format = " ♪: %volume "
+        format = " ♪ %volume "
+        format_muted = "♪ muted (%volume)"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
 }
 
 cpu_usage {
-        format = "CPU: %usage"
+        format = " %usage "
 }
