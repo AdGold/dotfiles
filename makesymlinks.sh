@@ -13,6 +13,8 @@ xinitrc
 xmodmaprc
 i3/config
 i3/i3status
+i3/i3exit
+i3/i3statusmod.py
 config/touchegg/touchegg.conf
 config/ranger/rc.conf
 ssh/config
@@ -21,12 +23,14 @@ screenlayout/one-screen.sh
 screenlayout/both-screens.sh
 screenlayout/mirror-screens.sh
 screenlayout/select-display.sh
+urxvt/ext/tabbedex
+urxvt/ext/clipboard
 "
 
 mkdir -p $olddir
 cd $dir
 
-dotfolders="ssh i3 config/touchegg config/ranger screenlayout"
+dotfolders="ssh i3 config/touchegg config/ranger screenlayout urxvt/ext"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
