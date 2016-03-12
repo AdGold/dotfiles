@@ -41,6 +41,8 @@ Bundle 'eagletmt/neco-ghc'
 Bundle 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Bundle 'rdnetto/YCM-Generator'
+" Plugin 'lilydjwg/colorizer'
+Bundle 'chrisbra/Colorizer'
 
 " vim-scripts
 Bundle 'L9'
@@ -77,6 +79,12 @@ map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
 map <silent> tt :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
+
+" Y should do what it's expected to do (d$, D, c$, C)
+nmap Y y$
+
+" Sorting is useful
+vnoremap S :sort<CR>
 
 " supertab setup
 " let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
@@ -133,6 +141,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set pastetoggle=<F3>
 
 " status
 set modeline
