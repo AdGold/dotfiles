@@ -99,9 +99,16 @@ unset GREP_OPTIONS
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias deploy='git checkout live; git merge --ff-only master; git checkout master; git push --all'
 alias unmount="devmon --unmount-all"
+alias rezsh="source ~/.zshrc"
+alias vmp="vblank_mode=0 vmplayer"
+alias r="ranger"
+alias sr="sudo ranger"
+
+source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
 export PATH=$PATH:/home/adrian/.gem/ruby/2.1.0/bin
+export PATH=$PATH:/opt/os161/bin
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
