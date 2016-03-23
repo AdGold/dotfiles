@@ -1,0 +1,16 @@
+# OS X stuff
+.Trashes/
+.DS_Store
+._*
+.Spotlight-V100
+
+# Windows stuff
+$RECYCLE.BIN/
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+
+# Vim files
+*~
+*.swp
+.ropeproject/

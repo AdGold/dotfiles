@@ -7,6 +7,7 @@ vimrc
 zshrc
 Xresources
 gitconfig
+gitignore
 pythonstartup.py
 vimrc
 xinitrc
