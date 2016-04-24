@@ -100,6 +100,9 @@ bindsym $mod+t exec --no-startup-id "pgrep onboard || onboard"; exec --no-startu
 bindsym $mod+Shift+Return exec pcmanfm
 bindsym XF86HomePage exec pcmanfm
 
+# enable wifi
+bindsym $mod+i exec "sudo rfkill unblock wifi; sudo ifconfig wlan0 up"
+
 # put xchat on workspace 9
 assign [class="sublime-text"] → $ws5
 assign [class="Zathura"] → $ws7
@@ -116,6 +119,9 @@ bindsym $mod+Shift+o move workspace to output left
 # Focus to monitor
 bindsym $mod+F1 focus output $screenExt
 bindsym $mod+F2 focus output $screenNorm
+
+# Switch monitors
+bindsym $mod+x exec ~/.i3/swap-workspace.py
 
 # Make the currently focused window a scratchpad
 #bindsym $mod+Shift+minus move scratchpad
@@ -287,8 +293,9 @@ bar {
         position top
         font pango: DejaVu Sans Mono 15
         status_command i3status -c ~/.i3/i3status | ~/.i3/i3statusmod.py
-        tray_output $screenExt
-        tray_output $screenNorm
+        tray_output primary
+        # tray_output $screenExt
+        # tray_output $screenNorm
 	colors{
         separator #FF5944
         statusline  #DEDEDE
@@ -306,6 +313,7 @@ exec --no-startup-id xmodmap ~/.xmodmaprc
 exec --no-startup-id dropbox start &
 exec --no-startup-id devmon &
 exec --no-startup-id touchegg &
+# exec --no-startup-id wicd-gtk &
 exec --no-startup-id nm-applet &
 exec --no-startup-id ~/.screenlayout/select-display.sh &
 # exec --no-startup-id IRSerial &
