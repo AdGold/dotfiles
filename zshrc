@@ -103,6 +103,7 @@ alias rezsh="source ~/.zshrc"
 alias vmp="vblank_mode=0 vmplayer"
 alias r="ranger"
 alias sr="sudo ranger"
+alias o="xdg-open @0 >/dev/null 2>&1"
 
 source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
@@ -112,3 +113,13 @@ export PATH=$PATH:/home/adrian/.gem/ruby/2.1.0/bin
 export PATH=$PATH:/opt/os161/bin
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
+
+# sudo chmod 777 /dev/video*
+
+# Robocup stuff
+export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
+export PATH="$RUNSWIFT_CHECKOUT_DIR/bin:$PATH"
+export CTC_DIR="/home/adrian/rUNSWift/ctc/ctc-linux64-atom-2.1.3.3"
+# export LIBGL_DEBUG=verbose
+# expport MESA_DEBUG=1 # doesn't actually change anything
+# export LIBGL_DRIVERS_PATH=/home/adrian/rUNSWift/ctc/sysroot_legacy/usr/lib/dri
