@@ -36,6 +36,7 @@ Bundle 'vim-scripts/Superior-Haskell-Interaction-Mode-SHIM'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc.vim'
+Bundle 'neovimhaskell/haskell-vim'
 " Bundle 'ervandew/supertab'
 Bundle 'eagletmt/neco-ghc'
 Bundle 'scrooloose/nerdtree'
@@ -103,6 +104,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " nerdtree
 map <C-N> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 " The following maps the F8 key to toggle between hex and binary (while also setting the 
 " noeol and binary flags, so if you :write your file, vim doesn't perform unwanted conversions.
@@ -168,8 +170,23 @@ set directory=~/vim/tmp,.
 " Remap ctrl+arrows to move between window splits
 nmap <silent> <C-Up> :wincmd k<CR>
 nmap <silent> <C-Down> :wincmd j<CR>
-nmap <silent> <C-Left> :wincmd h<CR>
-nmap <silent> <C-Right> :wincmd l<CR>
+" nmap <silent> <C-Left> :wincmd h<CR>
+" nmap <silent> <C-Right> :wincmd l<CR>
+
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
 
 " Allow Ctrl Shift C/V for copy/pasting to system
 vmap <silent> <C-c> "+y
@@ -269,6 +286,17 @@ map <F8> :TagbarToggle<CR>
 set splitbelow
 set splitright
 
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 " gitgutter config
 map <Leader>gt :GitGutterToggle<CR>
 map <Leader>gh :GitGutterLineHighlightsToggle<CR>
+
+" Haskell syntax highlighting
+let g:haskell_enable_quantification = 1 " to enable highlighting of forall
+let g:haskell_enable_recursivedo = 1 " to enable highlighting of mdo and rec
+let g:haskell_enable_arrowsyntax = 1 " to enable highlighting of proc
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of pattern
+let g:haskell_enable_typeroles = 1 " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1 " to enable highlighting of static
