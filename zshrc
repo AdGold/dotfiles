@@ -105,7 +105,10 @@ alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
 
-source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
+then
+    source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+fi
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
