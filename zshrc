@@ -104,6 +104,7 @@ alias vmp="vblank_mode=0 vmplayer"
 alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
+alias pi="ping 8.8.8.8"
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
