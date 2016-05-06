@@ -200,6 +200,8 @@ set $ws10 10: hipchat
 # Workspace cycling
 bindsym $mod+Right workspace next
 bindsym $mod+Left workspace prev
+bindsym $mod+Shift+Right move container to workspace next
+bindsym $mod+Shift+Left move container to workspace prev
 
 # Workspace screen assignments
 workspace "$ws1" output $screenExt
