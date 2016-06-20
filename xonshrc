@@ -1,0 +1,86 @@
+#!/usr/bin/xonsh
+
+# Startx if needed
+if not $DISPLAY and $XDG_VTNR == '1':
+    startx
+
+# Common imports to make command line usage nicer
+from math import *
+from datetime import datetime
+import os
+import sys
+import time
+import string
+
+# General settings
+$VI_MODE = True
+
+
+# Prompt
+
+from xonsh.environ import git_dirty_working_directory
+dirty = lambda:git_dirty_working_directory(include_untracked=True)
+$FORMATTER_DICT['branch_color'] = lambda: ('{BOLD_INTENSE_RED}'
+                                           if dirty()
+                                           else '{BOLD_INTENSE_GREEN}')
+$FORMATTER_DICT['git_indicator'] = lambda: ' ✗' * dirty()
+
+def prompt_start():
+    if __xonsh_history__.rtns and __xonsh_history__.rtns[-1] != 0:
+        colour = '{BOLD_#FF0000}'
+    else:
+        colour = '{BOLD_#00EE00}'
+    return colour + '➜ {NO_COLOR}'
+
+$FORMATTER_DICT['prompt_start'] = prompt_start
+
+# $MULTILINE_PROMPT = '·.,,.·°``°'
+# $MULTILINE_PROMPT = '{BOLD_#00BFFF}.{NO_COLOR}'
+$MULTILINE_PROMPT = '`·.,¸,.·°¯`·.,¸,.·°¯'
+$PROMPT = '{prompt_start}{env_name}{BOLD_#00BFFF} {cwd}{branch_color}{curr_branch}{NO_COLOR}{git_indicator} {BOLD_#00BFFF}{prompt_end}{NO_COLOR} '
+
+# Aliases
+
+# Change directory with ranger
+def run_ranger(args, stdin=None):
+    ranger "--choosedir=$HOME/.rangerdir"
+    end_dir = $(cat "$HOME/.rangerdir")
+    cd @(end_dir)
+aliases['c'] = run_ranger
+
+# Repeat last command with priviliges
+def sudo_last_cmd(args, stdin=None):
+     cmd = $(history -1).split(maxsplit=1)[1].strip()
+     sudo @(cmd)
+
+aliases['fuck'] = sudo_last_cmd
+
+aliases['~'] = 'cd ~'
+aliases['..'] = 'cd ..'
+aliases['...'] = 'cd ../..'
+aliases['_'] = 'sudo'
+aliases['addp'] = 'smplayer -add-to-playlist'
+aliases['copy'] = 'xsel -ib'
+aliases['deploy'] = 'git checkout live; git merge --ff-only master; git checkout master; git push --all'
+aliases['g'] = 'git'
+aliases['gl'] = "git log --show-notes='\''*'\'' --graph --abbrev-commit --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --all"
+aliases['l'] = 'ls -lah'
+aliases['la'] = 'ls -lAh'
+aliases['ll'] = 'ls -lh'
+aliases['ls'] = 'ls --color=tty'
+aliases['md'] = 'mkdir -p'
+aliases['mem'] = 'free -th'
+aliases['nvlc'] = 'vlc -I ncurses'
+aliases['o'] = 'xdg-open @0 >/dev/null 2>&1'
+aliases['pacin'] = 'sudo apt-get install'
+aliases['pacrem'] = 'sudo apt-get purge'
+aliases['paste'] = 'xsel -ob'
+aliases['pi'] = 'ping 8.8.8.8'
+aliases['please'] = 'sudo'
+aliases['py'] = 'python'
+aliases['python'] = 'python3'
+aliases['r'] = 'ranger'
+aliases['rd'] = 'rmdir'
+aliases['sr'] = 'sudo ranger'
+aliases['unmount'] = 'devmon --unmount-all'
+aliases['whichap'] = 'ap=`iwconfig wlan0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'

@@ -3,6 +3,7 @@
 dotdir=~/dotfiles
 olddir=~/dotfiles_old
 dotfiles="
+xonshrc
 vimrc
 zshrc
 Xresources
