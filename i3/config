@@ -317,6 +317,7 @@ exec --no-startup-id devmon &
 exec --no-startup-id touchegg &
 # exec --no-startup-id wicd-gtk &
 exec --no-startup-id nm-applet &
+exec --no-startup-id gtk-redshift &
 exec --no-startup-id ~/.screenlayout/select-display.sh &
 # exec --no-startup-id IRSerial &
 # exec --no-startup-id killall ibus-x11 
