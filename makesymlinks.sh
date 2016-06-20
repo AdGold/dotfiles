@@ -18,6 +18,7 @@ i3/i3exit
 i3/i3statusmod.py
 config/touchegg/touchegg.conf
 config/ranger/rc.conf
+config/redshift.conf
 ssh/config
 gtkrc-2.0
 screenlayout/one-screen.sh
