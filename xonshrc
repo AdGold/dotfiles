@@ -46,3 +46,8 @@ $FORMATTER_DICT['rtn_value'] = _cond(_rtn_err, lambda: '{BOLD_#FF0000}[%d]' % __
 
 # Current time
 $FORMATTER_DICT['curr_time'] = lambda: datetime.strftime(datetime.now(), '%H:%M')
+
+# Autojump setup
+import os
+$AUTOJUMP_DIR = os.path.join($HOME, 'dotfiles/autojump-xonsh')
+source @(os.path.join($AUTOJUMP_DIR, 'autojump.xsh'))

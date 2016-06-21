@@ -1,0 +1,3 @@
+[submodule "autojump-xonsh"]
+	path = autojump-xonsh
+	url = https://github.com/willsALMANJ/autojump-xonsh
