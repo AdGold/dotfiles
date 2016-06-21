@@ -29,6 +29,7 @@ aliases['gc'] = 'git commit'
 aliases['gcm'] = 'git commit -m'
 aliases['gd'] = 'git diff'
 aliases['gl'] = "git log --show-notes='\''*'\'' --graph --abbrev-commit --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --all"
+aliases['gp'] = 'git push'
 aliases['gs'] = 'git status'
 aliases['l'] = 'ls -lah'
 aliases['la'] = 'ls -lAh'
