@@ -105,6 +105,7 @@ alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
+alias whichap='ap=`iwconfig wlan0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
@@ -113,7 +114,7 @@ fi
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
-export PATH=$PATH:/home/adrian/.gem/ruby/2.1.0/bin
+# export PATH=$PATH:/home/adrian/.gem/ruby/2.1.0/bin
 export PATH=$PATH:/opt/os161/bin
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
