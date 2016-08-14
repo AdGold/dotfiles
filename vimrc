@@ -1,5 +1,7 @@
 filetype off
 
+set nocompatible
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -7,47 +9,52 @@ call vundle#begin()
 " required! 
 Bundle 'gmarik/Vundle.vim'
 
-" My Bundles here:
-"
-" original repos on github
 Bundle 'Valloric/YouCompleteMe'
+" Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
-Bundle 'majutsushi/tagbar'
-Bundle 'groenewege/vim-less'
-Bundle 'ap/vim-css-color'
-Bundle 'tpope/vim-fugitive'
-Bundle 'kien/ctrlp.vim'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'sophacles/vim-bundle-mako'
-Bundle 'klen/python-mode'
-Bundle 'tpope/vim-abolish'
-Bundle 'mjio/jellybeans.vim'
-Bundle 'bling/vim-airline'
-Bundle 'octol/vim-cpp-enhanced-highlight'
-Plugin 'luochen1990/rainbow'
-Plugin 'tpope/vim-obsession'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'KabbAmine/zeavim.vim'
 
-Bundle 'ehamberg/vim-cute-python'
-Bundle 'Twinside/vim-haskellConceal'
-Bundle 'vim-scripts/Superior-Haskell-Interaction-Mode-SHIM'
-" Bundle 'ujihisa/repl.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'neovimhaskell/haskell-vim'
-" Bundle 'ervandew/supertab'
-Bundle 'eagletmt/neco-ghc'
-Bundle 'scrooloose/nerdtree'
+" Better JS support
+Bundle 'jelera/vim-javascript-syntax'
+" Colour RGB appropriately
+Bundle 'ap/vim-css-color'
+" Tags
+Bundle 'majutsushi/tagbar'
+" Git support commands and git diff
+Bundle 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+" Fuzzy file searching
+Bundle 'ctrlpvim/ctrlp.vim'
+" Make python nice
+Bundle 'klen/python-mode'
+" Colour scheme
+Bundle 'nanotech/jellybeans.vim'
+" Nice status bar
+Bundle 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Better C++ highlighting
+Bundle 'octol/vim-cpp-enhanced-highlight'
+" Rainbow!!!
+Plugin 'luochen1990/rainbow'
+" Better Haskell indenting/highlighting
+Bundle 'neovimhaskell/haskell-vim'
+" Conceals in Haskell and Python
+" Bundle 'ehamberg/vim-cute-python'
+" Bundle 'Twinside/vim-haskellConceal'
+" Haskell completion
+Bundle 'eagletmt/neco-ghc'
+" Language aware commenting
+Bundle 'scrooloose/nerdcommenter'
+" File browser
+Bundle 'scrooloose/nerdtree'
 Bundle 'rdnetto/YCM-Generator'
-" Plugin 'lilydjwg/colorizer'
-Bundle 'chrisbra/Colorizer'
 
 " vim-scripts
-Bundle 'L9'
+" List tasks/todos
 Bundle 'TaskList.vim'
+" General helper utils
+Bundle 'L9'
+" Make Latex files nicer
 Bundle 'Latex-Text-Formatter'
 
 call vundle#end()
@@ -56,7 +63,7 @@ let g:necoghc_enable_detailed_browse = 1
 
 filetype plugin indent on
 
-" colorscheme jellybeans
+colorscheme jellybeans
 
 " general editing
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
@@ -64,39 +71,79 @@ set history=50	            	" keep 50 lines of command line history
 set ruler	                	" show the cursor position all the time
 set showcmd	                	" display incomplete commands
 set nu 		                	" show line numbers
-set rnu
-set incsearch	            	" do incremental searching
+set rnu                         " make line numbers relative
+
+" Save on loss of focus
+au FocusLost * :silent! wall
+" Automatically write changes to a file on certain commands
+set autowrite
+
+" Automatically reread externally modified files if unchanged in Vim
+set autoread
+
+" Display as much as possible of the last line
+set display+=lastline
+
+" Indicate we're on a fast terminal connection
+set ttyfast
+
+" Make 'U' perform a redo operation (a sensible inverse of 'u')
+nnoremap U <C-r>
+
+" Configure persistent undo
+if has('persistent_undo')
+    " Enable/disable saving of undo history to an undo file
+    set undofile
+
+    " Directories to try for reading/writing undo files
+    set undodir^=~/.vim/undo//
+endif
+
+" Ranger
+noremap <C-a> :silent !ranger %:h<cr>:redraw!<CR>
+
+" Py mode speedups
+" Don't automatically run linter on saving changes
+let g:pymode_lint_on_write = 0
+
+" Don't automatically regenerate rope project cache on saving changes
+let g:pymode_rope_regenerate_on_write = 0
+
+" Make search nice
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader>y :noh<cr>
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Movement
+nnoremap <tab> %
+vnoremap <tab> %
+nnoremap j gj
+nnoremap k gk
+
+nnoremap ; :
 
 " compiling with make
 set mp=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
 set aw
-
-" haskell repl keymap
-autocmd FileType haskell map <F5> :GhciFile<C-M><C-W>wA
-
-" haskell type information
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> tt :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
 
 " Y should do what it's expected to do (d$, D, c$, C)
 nmap Y y$
 
 " Sorting is useful
 vnoremap S :sort<CR>
-
-" supertab setup
-" let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-
-" if has("gui_running")
-  " imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-" else " no gui
-  " if has("unix")
-    " inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  " endif
-" endif
 
 " haskell supertab
 let g:haskellmode_completion_ghc = 1
@@ -106,7 +153,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 map <C-N> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-" The following maps the F8 key to toggle between hex and binary (while also setting the 
+" The following maps the F7 key to toggle between hex and binary (while also setting the 
 " noeol and binary flags, so if you :write your file, vim doesn't perform unwanted conversions.
 
 noremap <F7> :call HexMe()<CR>
@@ -129,13 +176,6 @@ if has('mouse')
   set mouse=a
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
 " indentation
 set autoindent
 set smartindent
@@ -143,6 +183,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+nnoremap <F3> :set paste!<cr>
 set pastetoggle=<F3>
 
 " status
@@ -170,11 +211,12 @@ set directory=~/vim/tmp,.
 " Remap ctrl+arrows to move between window splits
 nmap <silent> <C-Up> :wincmd k<CR>
 nmap <silent> <C-Down> :wincmd j<CR>
-" nmap <silent> <C-Left> :wincmd h<CR>
-" nmap <silent> <C-Right> :wincmd l<CR>
+nmap <silent> <C-Left> :wincmd h<CR>
+nmap <silent> <C-Right> :wincmd l<CR>
 
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+map <leader>[ :tabprevious<CR>
+map <leader>] :tabnext<CR>
+map <leader>y :tabedit<CR>
 
 " Go to tab by number
 noremap <leader>1 1gt
@@ -190,6 +232,7 @@ noremap <leader>0 :tablast<cr>
 
 " Allow Ctrl Shift C/V for copy/pasting to system
 vmap <silent> <C-c> "+y
+nmap <silent> <C-c> "+y
 vmap <silent> <C-v> "+p
 nmap <silent> <C-v> "+p
 imap <silent> <C-v> <ESC>"+pi
@@ -257,7 +300,7 @@ let g:syntastic_python_checkers = ['flake8', 'pyflakes']
 let g:syntastic_cpp_compiler_options = '-I${HOME}/openmpi/env/include -std=c++11'
 let g:syntastic_auto_loc_list=1
 
-map <Leader>s :SyntasticToggleMode<CR>
+map <leader>s :SyntasticToggleMode<CR>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -276,8 +319,8 @@ let g:NERDCustomDelimiters = {
     \ 'haskell': { 'left': '--', 'leftAlt': '{-', 'rightAlt': '-}' },
 \ }
 
-map <C-B> <Space>c<Space>
-map <F2> <Space>c<Space>
+" Use <leader>/ to toggle comment
+map <leader>/ <leader>c<space>
 
 " Map f8 for Tagbar
 map <F8> :TagbarToggle<CR>
@@ -287,16 +330,40 @@ set splitbelow
 set splitright
 
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>gd  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " gitgutter config
-map <Leader>gt :GitGutterToggle<CR>
-map <Leader>gh :GitGutterLineHighlightsToggle<CR>
+map <leader>gt :GitGutterToggle<CR>
+map <leader>gh :GitGutterLineHighlightsToggle<CR>
+
+" Use powerline fonts
+" Doesn't work for some reason (TODO)
+let g:airline_powerline_fonts = 1
+let g:airline_theme='murmur'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = '⎘ ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
+
+" " airline symbols
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
 
 " Haskell syntax highlighting
-let g:haskell_enable_quantification = 1 " to enable highlighting of forall
-let g:haskell_enable_recursivedo = 1 " to enable highlighting of mdo and rec
-let g:haskell_enable_arrowsyntax = 1 " to enable highlighting of proc
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of pattern
-let g:haskell_enable_typeroles = 1 " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1 " to enable highlighting of static
+let g:haskell_enable_quantification = 1 " enable highlighting of forall
+let g:haskell_enable_recursivedo = 1 " enable highlighting of mdo and rec
+let g:haskell_enable_arrowsyntax = 1 " enable highlighting of proc
+let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of pattern
+let g:haskell_enable_typeroles = 1 " enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1 " enable highlighting of static

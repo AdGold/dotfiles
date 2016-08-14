@@ -13,4 +13,5 @@ ehthumbs.db
 # Vim files
 *~
 *.swp
+.*.un~
 .ropeproject/
