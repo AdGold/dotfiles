@@ -2,6 +2,10 @@ Host orac
     HostName orac.amt.edu.au
     User adgold
 
+Host aioc
+    HostName aioc-core.cloudapp.net
+    User adgold
+
 Host maple
     HostName sigma3.maths.unsw.edu.au
     User z5076514
