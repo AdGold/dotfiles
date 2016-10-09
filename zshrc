@@ -83,6 +83,21 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+function ranger-cd {
+    tempfile=$(mktemp)
+    \ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
+    test -f "$tempfile" &&
+    if [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+
+function carry-ranger-cd {
+    ranger-cd
+    VISUAL=true zle edit-command-line
+}
+
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 alias copy="xsel -ib"
@@ -119,7 +134,8 @@ export PATH=$PATH:/opt/os161/bin
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
 
-# sudo chmod 777 /dev/video*
+zle -N carry-ranger-cd
+bindkey '^E' carry-ranger-cd
 
 # Robocup stuff
 export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
