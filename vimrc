@@ -1,5 +1,4 @@
 " Vundle settings {{{
-
 " Vundle init {{{
 filetype off
 
@@ -8,7 +7,6 @@ set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " }}}
-
 " Vundle packages {{{
 
 " let Vundle manage Vundle
@@ -65,9 +63,7 @@ Bundle 'Latex-Text-Formatter'
 
 call vundle#end()
 " }}}
-
 " }}}
-
 " General editing {{{
 
 let mapleader=" "
@@ -77,21 +73,25 @@ filetype plugin indent on
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set history=50	            	" keep 50 lines of command line history
 
+" Indicate we're on a fast terminal connection
+set ttyfast
+
+" don't clutter dir with backups/swap
+set backupdir=~/.vim/tmp,.
+set directory=~/.vim/tmp,.
+
+" }}}
+" Useful maps {{{
 " Edit vimrc easier
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" No need to press shift all the time
 nnoremap ; :
 
 " Switch mode using jk
 inoremap jk <esc>
 inoremap <esc> <nop>
-
-" Make 'U' perform a redo operation (a sensible inverse of 'u')
-nnoremap U <C-r>
-
-" Indicate we're on a fast terminal connection
-set ttyfast
 
 " Ranger
 " noremap <C-a> :silent !ranger %:h<cr>:redraw!<CR>
@@ -99,12 +99,7 @@ set ttyfast
 " Sorting is useful
 vnoremap S :sort<CR>
 
-" don't clutter dir with backups/swap
-set backupdir=~/.vim/tmp,.
-set directory=~/.vim/tmp,.
-
 " }}}
-
 " Indentation {{{
 set autoindent
 set smartindent
@@ -115,7 +110,6 @@ set softtabstop=4
 " use set paste! instead of pastetoggle so that it redraws correctly
 nnoremap <F3> :set paste!<cr>
 " }}}
-
 " Folding {{{
 set foldenable
 set foldmethod=syntax
@@ -127,7 +121,6 @@ highlight Folded ctermfg=White ctermbg=black
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview 
 " }}}
-
 " Visual candy {{{
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -145,7 +138,19 @@ set relativenumber              " make line numbers relative
 set laststatus=2                " Make last window always have a status line
 
 " }}}
+" Undo settings {{{
+" Configure persistent undo
+if has('persistent_undo')
+    " Enable/disable saving of undo history to an undo file
+    set undofile
 
+    " Directories to try for reading/writing undo files
+    set undodir^=~/.vim/undo//
+endif
+
+" Make 'U' perform a redo operation (a sensible inverse of 'u')
+nnoremap U <C-r>
+" }}}
 " Vimscript file settings {{{
 augroup filetype_vim
     autocmd!
@@ -153,7 +158,6 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldlevel=0
 augroup END
 " }}}
-
 " Write settings {{{
 " Save on loss of focus
 autocmd FocusLost * :silent! wall
@@ -166,16 +170,9 @@ set autoread
 " Display as much as possible of the last line
 set display+=lastline
 
-" Configure persistent undo
-if has('persistent_undo')
-    " Enable/disable saving of undo history to an undo file
-    set undofile
-
-    " Directories to try for reading/writing undo files
-    set undodir^=~/.vim/undo//
-endif
+" Write the file via sudo
+cnoremap w!! w !sudo tee % >/dev/null
 " }}}
-
 " Make search nice {{{
 nnoremap / /\v
 vnoremap / /\v
@@ -187,7 +184,6 @@ set showmatch
 set hlsearch
 nnoremap <leader>y :noh<cr>
 " }}}
-
 " Movement {{{
 nnoremap <tab> %
 vnoremap <tab> %
@@ -209,7 +205,6 @@ if has('mouse')
   set mouse=a
 endif
 " }}}
-
 " Compilation cmds {{{
 " compiling with make
 set mp=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
@@ -218,7 +213,6 @@ autocmd FileType cpp noremap <F5> :make
 " latex compile
 autocmd FileType tex noremap <F5> :!pdflatex --halt-on-error %<CR>
 " }}}
-
 " Hex editor functionality {{{
 
 " The following maps the F7 key to toggle between hex and binary (while also setting the 
@@ -240,7 +234,6 @@ function! HexMe()
 endfunction
 
 " }}}
-
 " Clipboard stuff {{{
 " Y should do what it's expected to do (d$, D, c$, C)
 nnoremap Y y$
@@ -258,9 +251,7 @@ nnoremap <silent> <C-v> "+p
 inoremap <silent> <C-v> <ESC>"+pi
 
 " }}}
-
 " Window management {{{
-
 " Window splits {{{
 
 " Remap ctrl+arrows to move between window splits
@@ -274,7 +265,6 @@ set splitbelow
 set splitright
 
 " }}}
-
 " Tabs {{{
 
 noremap <leader>[ :tabprevious<CR>
@@ -294,11 +284,8 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " }}}
-
 " }}}
-
 " Extended funcitonality {{{
-
 " Apply macros to multiple lines {{{
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -307,7 +294,6 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 " }}}
-
 " Python virtualenv fixes {{{
 " Now, make python work with virtualenvs:
 if has("python") && !empty($VIRTUAL_ENV)
@@ -323,7 +309,6 @@ if 'PYTHONPATH' not in os.environ:
 EOF
 endif
 " }}}
-
 " QuickFix close {{{
 " QuickFix close function; :q should close a window *and* the accompanying
 " quickfix
@@ -333,13 +318,11 @@ augroup QFClose
   autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 augroup END
 " }}}
-
 " Javascript folds {{{
 " Javascript folding that doesn't suck
 let javaScript_fold=1
 autocmd FileType javascript call JavaScriptFold()
 " }}}
-
 " C++ Conceals {{{
 " Conceal
 set conceallevel=2
@@ -351,11 +334,8 @@ function! SetCppConceals()
 endfunction
 autocmd FileType cpp call SetCppConceals()
 " }}}
-
 " }}}
-
 " Plugin settings {{{
-
 " Misc plugin settings {{{
 
 " NERDTree settings
@@ -369,7 +349,6 @@ noremap <F8> :TagbarToggle<CR>
 noremap <leader>gt :GitGutterToggle<CR>
 noremap <leader>gh :GitGutterLineHighlightsToggle<CR>
 " }}}
-
 " Rainbow parenthesis settings {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -385,7 +364,6 @@ let g:rainbow_conf = {
    \ }
    \ }
 " }}}
-
 " YCM settings {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
@@ -393,7 +371,6 @@ let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_autoclose_preview_window_after_completion=1
 noremap <leader>gd  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }}}
-
 " Syntastic settings {{{
 
 " Make syntastic work nicer
@@ -416,7 +393,6 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " }}}
-
 " NERDCommenter settings {{{
 let NERDSpaceDelims=1
 " Set default haskell comment to be -- (first line should work, but doesn't)
@@ -428,7 +404,6 @@ let g:NERDCustomDelimiters = {
 " Use <leader>/ to toggle comment
 map <leader>/ <leader>c<space>
 " }}}
-
 " Powerline/airline settings {{{
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
@@ -454,7 +429,6 @@ let g:airline_symbols.paste = 'ρ'
 " let g:airline_symbols.linenr = ''
 
 " }}}
-
 " Pymode settings {{{
 " Py mode speedups
 " Don't automatically run linter on saving changes
@@ -463,7 +437,6 @@ let g:pymode_lint_on_write = 0
 " Don't automatically regenerate rope project cache on saving changes
 let g:pymode_rope_regenerate_on_write = 0
 " }}}
-
 " Haskell settings {{{
 let g:necoghc_enable_detailed_browse = 1
 
@@ -479,5 +452,4 @@ let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of pattern
 let g:haskell_enable_typeroles = 1 " enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1 " enable highlighting of static
 " }}}
-
 " }}}
