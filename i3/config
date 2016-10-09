@@ -326,4 +326,4 @@ exec --no-startup-id i3-msg 'workspace $ws1; exec --no-startup-id chromium-brows
 # exec --no-startup-id xchat
 # exec --no-startup-id hipchat
 # exec --no-startup-id i3-msg 'workspace $ws8; exec smtube'
-exec --no-startup-id i3lock -i ~/lock.png
+# exec --no-startup-id i3lock -i ~/lock.png

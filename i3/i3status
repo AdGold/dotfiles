@@ -17,11 +17,11 @@ general {
 order += "tztime local"
 order += "cpu_usage"
 order += "disk /"
-order += "wireless wlan0"
+order += "wireless wlp1s0"
 order += "volume master"
 order += "battery 0"
 
-wireless wlan0 {
+wireless wlp1s0 {
         format_up = " %quality"
         #format_up = "↹: %quality at %essid, %bitrate"
         format_down = "⊠ down"
