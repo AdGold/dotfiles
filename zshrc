@@ -12,7 +12,7 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -110,6 +110,7 @@ alias addp="smplayer -add-to-playlist"
 alias fuck='sudo zsh -c "$(fc -ln -1)"'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias py="python"
+alias py3="python3"
 unset GREP_OPTIONS
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias deploy='git checkout live; git merge --ff-only master; git checkout master; git push --all'
@@ -120,7 +121,9 @@ alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
-alias whichap='ap=`iwconfig wlan0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
+alias whichap='ap=`iwconfig wlp1s0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
+alias di="vim -d"
+alias fixwifi="sudo /bin/systemctl restart NetworkManager.service"
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
@@ -129,8 +132,6 @@ fi
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
-# export PATH=$PATH:/home/adrian/.gem/ruby/2.1.0/bin
-export PATH=$PATH:/opt/os161/bin
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
 
@@ -141,6 +142,5 @@ bindkey '^E' carry-ranger-cd
 export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
 export PATH="$RUNSWIFT_CHECKOUT_DIR/bin:$PATH"
 export CTC_DIR="/home/adrian/rUNSWift/ctc/ctc-linux64-atom-2.1.3.3"
-# export LIBGL_DEBUG=verbose
-# expport MESA_DEBUG=1 # doesn't actually change anything
-# export LIBGL_DRIVERS_PATH=/home/adrian/rUNSWift/ctc/sysroot_legacy/usr/lib/dri
+
+source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
