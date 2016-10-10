@@ -10,7 +10,6 @@ Xresources
 gitconfig
 gitignore
 pythonstartup.py
-vimrc
 xinitrc
 xmodmaprc
 i3/config
@@ -28,6 +27,7 @@ screenlayout/mirror-screens.sh
 screenlayout/select-display.sh
 urxvt/ext/tabbedex
 urxvt/ext/clipboard
+vim/.ycm_extra_conf.py
 "
 
 mkdir -p $olddir

@@ -14,6 +14,7 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'rdnetto/YCM-Generator'
 " Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Plugin 'KabbAmine/zeavim.vim'
@@ -51,7 +52,6 @@ Bundle 'eagletmt/neco-ghc'
 Bundle 'scrooloose/nerdcommenter'
 " File browser
 Bundle 'scrooloose/nerdtree'
-Bundle 'rdnetto/YCM-Generator'
 
 " vim-scripts
 " List tasks/todos
@@ -207,7 +207,7 @@ endif
 " }}}
 " Compilation cmds {{{
 " compiling with make
-set mp=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
+set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
 autocmd FileType cpp noremap <F5> :make
 
 " latex compile
@@ -346,7 +346,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 noremap <F8> :TagbarToggle<CR>
 
 " gitgutter config
-noremap <leader>gt :GitGutterToggle<CR>
+" noremap <leader>gt :GitGutterToggle<CR>
 noremap <leader>gh :GitGutterLineHighlightsToggle<CR>
 " }}}
 " Rainbow parenthesis settings {{{
@@ -366,10 +366,20 @@ let g:rainbow_conf = {
 " }}}
 " YCM settings {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_python_binary_path = 'python3'
+let g:ycm_confirm_extra_conf = 0 
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
+let g:ycm_error_symbol = '✘'
+let g:ycm_warning_symbol = '>'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_goto_buffer_command = 'vertical-split'
 
-let g:ycm_autoclose_preview_window_after_completion=1
-noremap <leader>gd  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+noremap <leader>gd :YcmCompleter GoTo<CR>
+noremap <leader>gt :YcmCompleter GetType<CR>
+noremap <leader>gf :YcmCompleter FixIt<CR>
+
 " }}}
 " Syntastic settings {{{
 
