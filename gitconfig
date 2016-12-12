@@ -8,3 +8,9 @@
 
 [push]
 	default = matching
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
