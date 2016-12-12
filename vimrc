@@ -52,6 +52,8 @@ Bundle 'eagletmt/neco-ghc'
 Bundle 'scrooloose/nerdcommenter'
 " File browser
 Bundle 'scrooloose/nerdtree'
+" MiniZinc highlighting
+Plugin 'vale1410/vim-minizinc'
 
 " vim-scripts
 " List tasks/todos
@@ -91,6 +93,7 @@ nnoremap ; :
 
 " Switch mode using jk
 inoremap jk <esc>
+vnoremap jk <esc>
 inoremap <esc> <nop>
 
 " Ranger
@@ -98,6 +101,13 @@ inoremap <esc> <nop>
 
 " Sorting is useful
 vnoremap S :sort<CR>
+
+" C-v is mapped to paste so remap
+nnoremap <C-m> <C-v>
+nnoremap <leader>m <C-v>
+
+" Push argument in parameter list forward/backward
+nnoremap <leader>k "zdt,vwhdea, <Esc>"zp
 
 " }}}
 " Indentation {{{
@@ -183,8 +193,16 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader>y :noh<cr>
+
+" ; is mapped to : so remap
+nnoremap - ;
+
+" replace mapping
+nnoremap <leader>h :%s//c<Left><Left>
 " }}}
 " Movement {{{
+set scrolloff=5
+
 nnoremap <tab> %
 vnoremap <tab> %
 nnoremap j gj
@@ -205,6 +223,12 @@ if has('mouse')
   set mouse=a
 endif
 " }}}
+" QuickFix helpers {{{
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+" }}}
 " Compilation cmds {{{
 " compiling with make
 set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
@@ -212,6 +236,9 @@ autocmd FileType cpp noremap <F5> :make
 
 " latex compile
 autocmd FileType tex noremap <F5> :!pdflatex --halt-on-error %<CR>
+
+" MiniZinc run
+autocmd FileType zinc noremap <F5> :!minisearch %<CR>
 " }}}
 " Hex editor functionality {{{
 
@@ -248,7 +275,7 @@ vnoremap <silent> <C-c> "+y
 nnoremap <silent> <C-c> "+y
 vnoremap <silent> <C-v> "+p
 nnoremap <silent> <C-v> "+p
-inoremap <silent> <C-v> <ESC>"+pi
+inoremap <silent> <C-v> <ESC>"+pa
 
 " }}}
 " Window management {{{
@@ -337,6 +364,7 @@ autocmd FileType cpp call SetCppConceals()
 " }}}
 " Plugin settings {{{
 " Misc plugin settings {{{
+let zinc_no_highlight_overlong = 1
 
 " NERDTree settings
 noremap <C-N> :NERDTreeToggle<CR>
@@ -352,7 +380,7 @@ noremap <leader>gh :GitGutterLineHighlightsToggle<CR>
 " Rainbow parenthesis settings {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-   \ 'ctermfgs': ['Darkblue', 'darkgreen', 'darkcyan', 'darkmagenta', 'brown', 'grey', 'lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+   \ 'ctermfgs': ['Darkblue', 'darkgreen', 'darkcyan', 'darkmagenta', 'grey', 'lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
    \ 'separately': {
    \   'cpp': {
    \     'parentheses': [
@@ -409,6 +437,8 @@ let NERDSpaceDelims=1
 " let NERD_haskell_alt_style=1
 let g:NERDCustomDelimiters = {
     \ 'haskell': { 'left': '--', 'leftAlt': '{-', 'rightAlt': '-}' },
+    \ 'zinc': { 'left': '%', 'leftAlt': '/*', 'rightAlt': '*/' },
+    \ 'python': { 'left': '#', 'leftAlt': "'''", 'rightAlt': "'''" },
 \ }
 
 " Use <leader>/ to toggle comment
