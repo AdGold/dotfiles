@@ -98,7 +98,7 @@ function carry-ranger-cd {
     VISUAL=true zle edit-command-line
 }
 
-export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
+export PATH="$HOME/opt/MiniZinc-2.1.0:$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 alias copy="xsel -ib"
 alias paste="xsel -ob"
@@ -112,6 +112,8 @@ alias fuck='sudo zsh -c "$(fc -ln -1)"'
 alias py="python"
 alias py3="python3"
 unset GREP_OPTIONS
+alias gs="git status"
+alias gc="git commit -m"
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias deploy='git checkout live; git merge --ff-only master; git checkout master; git push --all'
 alias unmount="devmon --unmount-all"
@@ -143,4 +145,7 @@ export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
 export PATH="$RUNSWIFT_CHECKOUT_DIR/bin:$PATH"
 export CTC_DIR="/home/adrian/rUNSWift/ctc/ctc-linux64-atom-2.1.3.3"
 
-source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+then
+    source ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
