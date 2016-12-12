@@ -23,8 +23,8 @@ URxvt.keysym.Shift-Up:    perl:tabbedex:rename_tab
 !URxvt.tabbed.no-tabbedex-keys: true
 
 !set transperancy and shading amount 7 = mostly opaque
-URxvt*.transparent: true
-URxvt*.shading: 7                                               !set trans amount, 7 = mostly opaque
+! URxvt*.transparent: true
+! URxvt*.shading: 7                                               !set trans amount, 7 = mostly opaque
 
 !launch urls by clicking and set highlight colour
 URxvt.url-launcher: /usr/bin/xdg-open
@@ -49,6 +49,7 @@ URxvt.clipboard.pastecmd: xsel -ob
 !set font and size
 ! URxvt.font:     xft:bitstream vera sans mono:size=17:antialias=true
 URxvt.boldFont: xft:bitstream vera sans mono:bold:size=17:antialias=true
+! URxvtfont : --dejavu sans mono-----------iso8859-
 
 URxvt*color0:  #000000 // black
 URxvt*color1:  #B40000 // red
