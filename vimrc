@@ -134,17 +134,7 @@ set shiftwidth=4
 set softtabstop=4
 " use set paste! instead of pastetoggle so that it redraws correctly
 nnoremap <F3> :set paste!<cr>
-" }}}
-" Folding {{{
-set foldenable
-set foldmethod=syntax
-set foldopen=block,hor,percent,quickfix,tag
-set foldlevel=99
-highlight Folded ctermfg=White ctermbg=black
 
-" Make folds persistent
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview 
 " Reselect visual block after indent/outdent
 vnoremap < <gv
 vnoremap > >gv
@@ -166,6 +156,17 @@ set number 		              	" show line numbers
 set relativenumber              " make line numbers relative
 set laststatus=2                " Make last window always have a status line
 
+" }}}
+" Folding {{{
+set foldenable
+set foldmethod=syntax
+set foldopen=block,hor,percent,quickfix,tag
+set foldlevel=99
+highlight Folded ctermfg=lightblue ctermbg=None
+
+" Make folds persistent
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview 
 " }}}
 " Undo settings {{{
 " Configure persistent undo
