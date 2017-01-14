@@ -91,7 +91,7 @@ set directory=~/.vim/tmp,.
 " Useful maps {{{
 " Edit vimrc easier
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:filetype detect<CR>
 
 " No need to press shift all the time
 nnoremap ; :
