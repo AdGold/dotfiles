@@ -95,6 +95,7 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:filetype detect<CR>
 
 " No need to press shift all the time
 nnoremap ; :
+vnoremap ; :
 
 " Switch mode using jk
 inoremap jk <esc>
@@ -139,6 +140,10 @@ highlight Folded ctermfg=White ctermbg=black
 " Make folds persistent
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview 
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
 " }}}
 " Visual candy {{{
 
