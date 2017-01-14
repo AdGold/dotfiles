@@ -104,7 +104,7 @@ vnoremap ; :
 
 " Switch mode using jk
 inoremap jk <esc>
-vnoremap jk <esc>
+" vnoremap jk <esc>
 inoremap <esc> <nop>
 " needed so that vim still understands escape sequences
 inoremap <esc>^[ <esc>^[
