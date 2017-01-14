@@ -114,6 +114,9 @@ vnoremap S :sort<CR>
 nnoremap <C-m> <C-v>
 nnoremap <leader>m <C-v>
 
+" Reduce from 3 keystrokes to 1 to save file
+nnoremap S :w<CR>
+
 " Push argument in parameter list forward/backward
 nnoremap <leader>k :SidewaysRight<CR>
 nnoremap <leader>j :SidewaysLeft<CR>
