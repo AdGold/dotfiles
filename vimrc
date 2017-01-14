@@ -55,6 +55,11 @@ Bundle 'scrooloose/nerdtree'
 " MiniZinc highlighting
 Plugin 'vale1410/vim-minizinc'
 
+" Useful text objects"
+" Bundle 'wellle/targets.vim'
+" Move arguments/items sideways
+Bundle 'AndrewRadev/sideways.vim'
+
 " vim-scripts
 " List tasks/todos
 Bundle 'TaskList.vim'
@@ -107,7 +112,11 @@ nnoremap <C-m> <C-v>
 nnoremap <leader>m <C-v>
 
 " Push argument in parameter list forward/backward
-nnoremap <leader>k "zdt,vwhdea, <Esc>"zp
+nnoremap <leader>k :SidewaysRight<CR>
+nnoremap <leader>j :SidewaysLeft<CR>
+" using text objects from target.vim
+" nmap <leader>k "zdIa"y2xvIava, jk"zp
+" nmap <leader>j vIlav<leader>kvIlav
 
 " }}}
 " Indentation {{{
