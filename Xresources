@@ -53,8 +53,8 @@ URxvt.keysym.C-C: perl:clipboard:copy
 URxvt.keysym.C-V: perl:clipboard:paste
 
 !set copy/paste cmd
-URxvt.clipboard.copycmd:  xsel -ib
-URxvt.clipboard.pastecmd: xsel -ob
+URxvt.clipboard.copycmd:  xsel -ip
+URxvt.clipboard.pastecmd: xsel -op
 
 !set font and size
 ! URxvt.font:     xft:bitstream vera sans mono:size=17:antialias=true
@@ -79,5 +79,5 @@ URxvt*color14: #00FFFF // cyan
 URxvt*color15: #FFFFFF // white
 
 ! URxvt.font: xft:Terminess Powerline:size=13
-URxvt.font: xft:DejaVu Sans Mono for Powerline-17
+URxvt.font: xft:DejaVu Sans Mono for Powerline-15
 ! URxvt.font: xft:Inconsolata for Powerline:size=12:style=Medium
