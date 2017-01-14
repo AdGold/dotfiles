@@ -494,6 +494,12 @@ let g:airline_symbols.paste = 'ρ'
 " Don't automatically run linter on saving changes
 let g:pymode_lint_on_write = 0
 
+" enable folding
+let g:pymode_folding = 1
+
+" python3
+let g:pymode_python = 'python3'
+
 " Don't automatically regenerate rope project cache on saving changes
 let g:pymode_rope_regenerate_on_write = 0
 " }}}
