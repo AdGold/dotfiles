@@ -20,6 +20,16 @@ URxvt.keysym.Shift-Right:  perl:tabbedex:next_tab
 URxvt.keysym.Shift-Left:    perl:tabbedex:prev_tab
 URxvt.keysym.Shift-Down:    perl:tabbedex:new_tab
 URxvt.keysym.Shift-Up:    perl:tabbedex:rename_tab
+URxvt.keysym.M-l: perl:tabbedex:next_tab
+URxvt.keysym.M-k: perl:tabbedex:next_tab
+URxvt.keysym.M-j: perl:tabbedex:prev_tab
+URxvt.keysym.M-h: perl:tabbedex:prev_tab
+URxvt.keysym.M-L: perl:tabbedex:move_tab_right
+URxvt.keysym.M-K: perl:tabbedex:move_tab_right
+URxvt.keysym.M-J: perl:tabbedex:move_tab_left
+URxvt.keysym.M-H: perl:tabbedex:move_tab_left
+URxvt.keysym.M-n: perl:tabbedex:new_tab
+URxvt.keysym.M-r: perl:tabbedex:rename_tab
 !URxvt.tabbed.no-tabbedex-keys: true
 
 !set transperancy and shading amount 7 = mostly opaque
