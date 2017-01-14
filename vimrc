@@ -87,6 +87,11 @@ set ttyfast
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 
+" wild menu
+" set wildmenu                    " Make completion useful: show a navigable menu for tab completion
+set wildignore+=.svn,CVS,.git,*.pyc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bak,*.beam,*/tmp/*,*.zip,log/**,node_modules/**,target/**,tmp/**,*.rbc    " Ignore these files when completing names and in Explorer
+set wildmode=list:longest,list:full  " List all matches and complete till longest common string, or complete first match
+
 " }}}
 " Useful maps {{{
 " Edit vimrc easier
