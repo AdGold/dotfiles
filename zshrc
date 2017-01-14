@@ -1,11 +1,13 @@
+# export TERM="xterm-256color"
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/adrian/.oh-my-zsh
+export ZSH=/home/adrian/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -109,7 +111,8 @@ alias mem="free -th"
 alias addp="smplayer -add-to-playlist"
 alias fuck='sudo zsh -c "$(fc -ln -1)"'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
-alias py="python"
+alias py="python3"
+alias py2="python2"
 alias py3="python3"
 unset GREP_OPTIONS
 alias gs="git status"
@@ -148,6 +151,9 @@ bindkey '^r' history-incremental-search-backward
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
+
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd v edit-command-line
 
@@ -173,6 +179,30 @@ if [ -f ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+function zsh_last_status() {
+  if [[ $RETVAL -ne 0 ]]; then
+    echo -n "%F{red}✘"
+  else
+    echo -n "%F{green}✓"
+  fi
+}
+
+# powerline prompt zsh settings
+# POWERLEVEL9K_MODE='awesome-patched'
+# shorten directory path
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+# prompt order
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status battery time dir vcs virtualenv)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_status dir vcs virtualenv)
+POWERLEVEL9K_BATTERY_LOW_THRESHOLD=15
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vi_mode)
+POWERLEVEL9K_VCS_HIDE_TAGS=true
+# POWERLEVEL9K_VCS_UNTRACKED_ICON=''
+POWERLEVEL9K_CUSTOM_STATUS="zsh_last_status"
+POWERLEVEL9K_CUSTOM_STATUS_BACKGROUND="black"
 
 export GUROBI_HOME="/home/adrian/opt/gurobi701/linux64"
 export PATH="${PATH}:${GUROBI_HOME}/bin"
