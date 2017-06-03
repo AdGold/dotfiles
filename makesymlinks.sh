@@ -19,6 +19,9 @@ i3/i3statusmod.py
 config/touchegg/touchegg.conf
 config/ranger/rc.conf
 config/redshift.conf
+tmux.conf
+config/tmux/screenline.conf
+config/tmux/tmuxline.conf
 ssh/config
 gtkrc-2.0
 screenlayout/one-screen.sh
