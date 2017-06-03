@@ -34,7 +34,7 @@ vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
 "
 
-mkdir -p $olddir
+# mkdir -p $olddir
 cd $dir
 
 dotfolders="ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
@@ -45,7 +45,7 @@ done
 echo "Moving any existing dotfiles from ~ to $olddir"
 
 for file in $dotfiles; do
-    [ -f ~/.$file ] && [ ! -L ~/.$file ] && mv ~/.$file ~/$olddir/
+    # [ -f ~/.$file ] && [ ! -L ~/.$file ] && mv ~/.$file ~/$olddir/
     [ -f ~/.$file ] && rm ~/.$file
     echo "Creating symlink to .$file in home directory."
     ln -s $dotdir/$file ~/.$file
