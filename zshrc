@@ -100,7 +100,9 @@ function carry-ranger-cd {
     VISUAL=true zle edit-command-line
 }
 
-export PATH="$HOME/opt/MiniZinc-2.1.0:$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
+export PATH="$HOME/opt/:$PATH"
+export PATH="$HOME/opt/MiniZinc-2.1.0:$PATH"
+export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 alias copy="xsel -ib"
 alias paste="xsel -ob"
@@ -129,6 +131,10 @@ alias pi="ping 8.8.8.8"
 alias whichap='ap=`iwconfig wlp1s0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
 alias di="vim -d"
 alias fixwifi="sudo /bin/systemctl restart NetworkManager.service"
+alias update_all="sudo apt update; sudo apt upgrade -y; sudo apt dist-upgrade -y; sudo apt autoremove"
+alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
+alias t="tmux"
+alias td="tmux -q has-session -t default && tmux attach -d -t default || tmux new-session -s default"
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
