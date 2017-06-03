@@ -31,12 +31,13 @@ screenlayout/select-display.sh
 urxvt/ext/tabbedex
 urxvt/ext/clipboard
 vim/.ycm_extra_conf.py
+scripts/move-to-next-monitor
 "
 
 mkdir -p $olddir
 cd $dir
 
-dotfolders="ssh i3 config/touchegg config/ranger screenlayout urxvt/ext"
+dotfolders="ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
