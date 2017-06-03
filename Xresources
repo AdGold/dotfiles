@@ -54,8 +54,8 @@ URxvt.keysym.C-C: perl:clipboard:copy
 URxvt.keysym.C-V: perl:clipboard:paste
 
 !set copy/paste cmd
-URxvt.clipboard.copycmd:  xsel -ip
-URxvt.clipboard.pastecmd: xsel -op
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
 
 !set font and size
 ! URxvt.font:     xft:bitstream vera sans mono:size=17:antialias=true
