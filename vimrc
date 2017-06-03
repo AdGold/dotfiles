@@ -56,9 +56,11 @@ Bundle 'scrooloose/nerdtree'
 Plugin 'vale1410/vim-minizinc'
 
 " Useful text objects"
-" Bundle 'wellle/targets.vim'
+Bundle 'wellle/targets.vim'
 " Move arguments/items sideways
 Bundle 'AndrewRadev/sideways.vim'
+" move inside identifiers
+Plugin 'bkad/CamelCaseMotion'
 
 " vim-scripts
 " List tasks/todos
@@ -388,20 +390,6 @@ autocmd FileType cpp call SetCppConceals()
 " }}}
 " }}}
 " Plugin settings {{{
-" Misc plugin settings {{{
-let zinc_no_highlight_overlong = 1
-
-" NERDTree settings
-noremap <C-N> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-
-" Map f8 for Tagbar
-noremap <F8> :TagbarToggle<CR>
-
-" gitgutter config
-" noremap <leader>gt :GitGutterToggle<CR>
-noremap <leader>gh :GitGutterLineHighlightsToggle<CR>
-" }}}
 " Rainbow parenthesis settings {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -505,6 +493,9 @@ let g:pymode_folding = 1
 " python3
 let g:pymode_python = 'python3'
 
+" use <leader>p for pdb breakpoint
+let g:pymode_breakpoint_bind = '<leader>p'
+
 " Don't automatically regenerate rope project cache on saving changes
 let g:pymode_rope_regenerate_on_write = 0
 " }}}
@@ -522,5 +513,25 @@ let g:haskell_enable_arrowsyntax = 1 " enable highlighting of proc
 let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of pattern
 let g:haskell_enable_typeroles = 1 " enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1 " enable highlighting of static
+" }}}
+" Misc plugin settings {{{
+let zinc_no_highlight_overlong = 1
+
+" NERDTree settings
+noremap <C-N> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+" Map f8 for Tagbar
+noremap <F8> :TagbarToggle<CR>
+
+" gitgutter config
+" noremap <leader>gt :GitGutterToggle<CR>
+noremap <leader>gh :GitGutterLineHighlightsToggle<CR>
+
+" create mappings for movement in identifiers
+call camelcasemotion#CreateMotionMappings('<leader>')
+map w <leader>w
+map b <leader>b
+map e <leader>e
 " }}}
 " }}}
