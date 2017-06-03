@@ -1,4 +1,5 @@
 import sys, os, string, time, readline, rlcompleter, copy
+import itertools, collections
 
 readline.parse_and_bind("C-spc: complete")
 
