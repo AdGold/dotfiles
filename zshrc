@@ -134,7 +134,7 @@ alias fixwifi="sudo /bin/systemctl restart NetworkManager.service"
 alias update_all="sudo apt update; sudo apt upgrade -y; sudo apt dist-upgrade -y; sudo apt autoremove"
 alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
 alias t="tmux"
-alias td="tmux -q has-session -t default && tmux attach -d -t default || tmux new-session -s default"
+alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
