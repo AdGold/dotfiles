@@ -181,9 +181,9 @@ export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
 export PATH="$RUNSWIFT_CHECKOUT_DIR/bin:$PATH"
 export CTC_DIR="/home/adrian/rUNSWift/ctc/ctc-linux64-atom-2.1.3.3"
 
-if [ -f ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+if [ -f ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
-    source ~/git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 function zsh_last_status() {

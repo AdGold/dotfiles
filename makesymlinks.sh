@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dotdir=~/dotfiles
-olddir=~/dotfiles_old
+dotdir=~/.git_installs/dotfiles
+olddir=~/.git_installs/dotfiles_old
 dotfiles="
 xonshrc
 vimrc
@@ -34,7 +34,7 @@ vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
 "
 
-# mkdir -p $olddir
+
 cd $dir
 
 dotfolders="ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
@@ -45,8 +45,8 @@ done
 echo "Moving any existing dotfiles from ~ to $olddir"
 
 for file in $dotfiles; do
-    # [ -f ~/.$file ] && [ ! -L ~/.$file ] && mv ~/.$file ~/$olddir/
-    [ -f ~/.$file ] && rm ~/.$file
+    [ -f ~/.$file ] && [ ! -L ~/.$file ] && mkdir -p $olddir && mv ~/.$file ~/$olddir/
+    rm ~/.$file
     echo "Creating symlink to .$file in home directory."
     ln -s $dotdir/$file ~/.$file
 done
