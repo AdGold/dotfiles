@@ -51,4 +51,6 @@ for file in $dotfiles; do
     ln -s $dotdir/$file ~/.$file
 done
 
+xrdb -merge ~/.Xresources
+
 echo "done"
