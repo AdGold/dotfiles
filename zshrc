@@ -101,6 +101,7 @@ function carry-ranger-cd {
 }
 
 export PATH="$HOME/opt/:$PATH"
+export PATH="$HOME/.scripts/:$PATH"
 export PATH="$HOME/opt/MiniZinc-2.1.0:$PATH"
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 

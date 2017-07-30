@@ -32,6 +32,8 @@ urxvt/ext/tabbedex
 urxvt/ext/clipboard
 vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
+scripts/vpn
+scripts/makesymlinks
 "
 
 
