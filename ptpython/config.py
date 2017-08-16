@@ -3,6 +3,7 @@ from prompt_toolkit.filters import ViInsertMode
 from prompt_toolkit.key_binding.input_processor import KeyPress
 from prompt_toolkit.keys import Keys
 from pygments.token import Token
+from pygments.styles import get_style_by_name
 
 from ptpython.layout import CompletionVisualisation
 
@@ -102,10 +103,10 @@ def configure(repl):
     repl.true_color = True
 
     # Install custom colorscheme named 'my-colorscheme' and use it.
-    """
-    repl.install_ui_colorscheme('my-colorscheme', _custom_ui_colorscheme)
-    repl.use_ui_colorscheme('my-colorscheme')
-    """
+    # repl.install_ui_colorscheme('my-colorscheme', _custom_ui_colorscheme)
+    # repl.use_ui_colorscheme('my-colorscheme')
+    repl.install_code_colorscheme('my-colorscheme', _custom_ui_colorscheme)
+    repl.use_code_colorscheme('my-colorscheme')
 
     # Add custom key binding for PDB.
     @repl.add_key_binding(Keys.ControlB)
@@ -181,10 +182,14 @@ def configure(repl):
 
 # Custom colorscheme for the UI. See `ptpython/layout.py` and
 # `ptpython/style.py` for all possible tokens.
-_custom_ui_colorscheme = {
+_custom_ui_colorscheme = {}
+_custom_ui_colorscheme.update(get_style_by_name('pastie').styles)
+_custom_ui_colorscheme.update({
     # Blue prompt.
-    Token.Layout.Prompt:                          'bg:#eeeeff #000000 bold',
+    # Token.Layout.Prompt:                          'bg:#eeeeff #000000 bold',
 
     # Make the status toolbar red.
-    Token.Toolbar.Status:                         'bg:#ff0000 #000000',
-}
+    # Token.Toolbar.Status:                         'bg:#ff0000 #000000',
+
+    Token.Literal.String:                         'bg:#000000 #ff44ff',
+})
