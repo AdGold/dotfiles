@@ -114,7 +114,7 @@ alias mem="free -th"
 alias addp="smplayer -add-to-playlist"
 alias fuck='sudo zsh -c "$(fc -ln -1)"'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
-alias py="python3"
+alias py="ptpython"
 alias py2="python2"
 alias py3="python3"
 unset GREP_OPTIONS

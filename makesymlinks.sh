@@ -34,6 +34,7 @@ vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
 scripts/vpn
 scripts/makesymlinks
+ptpython/config.py
 "
 
 
