@@ -112,11 +112,12 @@ alias pacrem='sudo apt-get purge'
 alias nvlc="vlc -I ncurses"
 alias mem="free -th"
 alias addp="smplayer -add-to-playlist"
-alias fuck='sudo zsh -c "$(fc -ln -1)"'
+alias fuck='sudo $(fc -ln -1)'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias py="ptpython"
 alias py2="python2"
 alias py3="python3"
+alias g14="g++ -std=c++14"
 unset GREP_OPTIONS
 alias gs="git status"
 alias gc="git commit -m"
