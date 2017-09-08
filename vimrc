@@ -258,8 +258,11 @@ nnoremap ]Q :clast<CR>
 " }}}
 " Compilation cmds {{{
 " compiling with make
-set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++11\"
-autocmd FileType cpp noremap <F5> :make
+set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++14\"
+autocmd FileType c noremap <F5> :make<CR>
+autocmd FileType c noremap <F6> :!./%:r<CR>
+autocmd FileType cpp noremap <F5> :make<CR>
+autocmd FileType cpp noremap <F6> :!./%:r<CR>
 
 " latex compile
 autocmd FileType tex noremap <F5> :!pdflatex --halt-on-error %<CR>
