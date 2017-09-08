@@ -19,6 +19,9 @@ Bundle 'rdnetto/YCM-Generator'
 Bundle 'scrooloose/syntastic'
 Plugin 'KabbAmine/zeavim.vim'
 
+" Auto switch to paste
+Plugin 'ConradIrwin/vim-bracketed-paste.git'
+
 " Better JS support
 Bundle 'jelera/vim-javascript-syntax'
 " Colour RGB appropriately
@@ -123,6 +126,9 @@ nnoremap <leader>m <C-v>
 
 " Reduce from 3 keystrokes to 1 to save file
 nnoremap S :w<CR>
+
+" Dot command works on ranges
+xnoremap . :normal .<CR>
 
 " Push argument in parameter list forward/backward
 nnoremap <leader>k :SidewaysRight<CR>
