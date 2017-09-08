@@ -11,7 +11,7 @@ Host maple
     User z5076514
 
 Host unsw
-    HostName cse.unsw.edu.au
+    HostName wagner.cse.unsw.edu.au
     User z5076514
 
 Host vps
