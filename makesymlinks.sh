@@ -40,7 +40,7 @@ ptpython/config.py
 
 cd $dir
 
-dotfolders="ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
+dotfolders="ptpython ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
