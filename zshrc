@@ -1,4 +1,4 @@
-# export TERM="xterm-256color"
+export TERM="xterm-256color"
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -102,7 +102,7 @@ function carry-ranger-cd {
 
 export PATH="$HOME/opt/:$PATH"
 export PATH="$HOME/.scripts/:$PATH"
-export PATH="$HOME/opt/MiniZinc-2.1.0:$PATH"
+export PATH="/opt/MiniZincIDE:$PATH"
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 alias copy="xsel -ib"
@@ -122,7 +122,7 @@ unset GREP_OPTIONS
 alias gs="git status"
 alias gc="git commit -m"
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
-alias deploy='git checkout live; git merge --ff-only master; git checkout master; git push --all'
+alias remount_all=" sudo mount -o remount,rw /media/$USER/*"
 alias unmount="devmon --unmount-all"
 alias rezsh="source ~/.zshrc"
 alias vmp="vblank_mode=0 vmplayer"
@@ -132,11 +132,14 @@ alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
 alias whichap='ap=`iwconfig wlp1s0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
 alias di="vim -d"
+alias vim='vim --servername VIM'
 alias fixwifi="sudo /bin/systemctl restart NetworkManager.service"
 alias update_all="sudo apt update; sudo apt upgrade -y; sudo apt dist-upgrade -y; sudo apt autoremove"
 alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
 alias t="tmux"
 alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
+alias remount_all="sudo mount -o remount,rw /media/$USER/*"
+alias xpdf="zathura"
 
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
 then
@@ -212,7 +215,7 @@ POWERLEVEL9K_VCS_HIDE_TAGS=true
 POWERLEVEL9K_CUSTOM_STATUS="zsh_last_status"
 POWERLEVEL9K_CUSTOM_STATUS_BACKGROUND="black"
 
-export GUROBI_HOME="/home/adrian/opt/gurobi701/linux64"
+export GUROBI_HOME="/opt/gurobi702/linux64"
 export PATH="${PATH}:${GUROBI_HOME}/bin"
 export LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
 # export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"

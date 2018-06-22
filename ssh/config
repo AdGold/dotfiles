@@ -14,6 +14,10 @@ Host unsw
     HostName wagner.cse.unsw.edu.au
     User z5076514
 
+Host unsw2
+    HostName williams.cse.unsw.edu.au
+    User z5076514
+
 Host vps
     HostName aura.comk.id.au
     Port 50210
@@ -27,6 +31,10 @@ Host home
 
 Host jugglesim
     HostName jugglesim.com
+    User adrian
+
+Host room
+    HostName 192.168.0.4
     User adrian
 
 Host boomer

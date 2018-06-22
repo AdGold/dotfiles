@@ -34,7 +34,8 @@ Plugin 'airblade/vim-gitgutter'
 " Fuzzy file searching
 Bundle 'ctrlpvim/ctrlp.vim'
 " Make python nice
-Bundle 'klen/python-mode'
+" Bundle 'klen/python-mode'
+Bundle 'python-mode/python-mode'
 " Colour scheme
 Bundle 'nanotech/jellybeans.vim'
 " Nice status bar
@@ -72,6 +73,13 @@ Bundle 'TaskList.vim'
 Bundle 'L9'
 " Make Latex files nicer
 Bundle 'Latex-Text-Formatter'
+Plugin 'lervag/vimtex'
+
+" Debugging in vim
+Plugin 'joonty/vdebug'
+
+" Fancy icons
+" Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 " }}}
@@ -79,6 +87,7 @@ call vundle#end()
 " General editing {{{
 
 let mapleader=" "
+let maplocalleader=" "
 
 filetype plugin indent on
 
@@ -92,6 +101,9 @@ set ttyfast
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 
+" simple word count
+nnoremap <leader>cw :!wc -w %<CR>
+
 " wild menu
 " set wildmenu                    " Make completion useful: show a navigable menu for tab completion
 set wildignore+=.svn,CVS,.git,*.pyc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bak,*.beam,*/tmp/*,*.zip,log/**,node_modules/**,target/**,tmp/**,*.rbc    " Ignore these files when completing names and in Explorer
@@ -100,7 +112,7 @@ set wildmode=list:longest,list:full  " List all matches and complete till longes
 " }}}
 " Useful maps {{{
 " Edit vimrc easier
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>cv :vsplit $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:filetype detect<CR>
 
 " No need to press shift all the time
@@ -271,7 +283,8 @@ autocmd FileType cpp noremap <F5> :make<CR>
 autocmd FileType cpp noremap <F6> :!./%:r<CR>
 
 " latex compile
-autocmd FileType tex noremap <F5> :!pdflatex --halt-on-error %<CR>
+" autocmd FileType tex noremap <F5> :!latexmk % -pdf<CR>
+autocmd FileType tex noremap <F5> :!latexmk -e '$pdflatex=q/pdflatex \%O -shell-escape \%S/' % -pdf<CR>
 
 " MiniZinc run
 autocmd FileType zinc noremap <F5> :!minisearch %<CR>

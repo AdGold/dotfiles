@@ -30,6 +30,7 @@ screenlayout/mirror-screens.sh
 screenlayout/select-display.sh
 urxvt/ext/tabbedex
 urxvt/ext/clipboard
+urxvt/ext/font-size
 vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
 scripts/vpn
