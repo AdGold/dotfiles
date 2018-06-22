@@ -45,6 +45,16 @@ URxvt.colorUL: #4682B4
 !put scrollbar on right hand side
 ! URxvt*scrollBar_right:  true
 
+! Font size changing
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+URxvt.keysym.C-equal:  font-size:reset
+URxvt.keysym.C-slash:  font-size:show
+
+! URxvt.font-size.step: 4
+
 !set foreground
 URxvt*foreground: yellow
 URxvt*background: black
@@ -80,5 +90,6 @@ URxvt*color14: #00FFFF // cyan
 URxvt*color15: #FFFFFF // white
 
 ! URxvt.font: xft:Terminess Powerline:size=13
+! URxvt.font: xft:mononoki Nerd Font Complete-15
 URxvt.font: xft:DejaVu Sans Mono for Powerline-15
 ! URxvt.font: xft:Inconsolata for Powerline:size=12:style=Medium
