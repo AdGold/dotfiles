@@ -33,6 +33,7 @@ urxvt/ext/clipboard
 urxvt/ext/font-size
 vim/.ycm_extra_conf.py
 scripts/move-to-next-monitor
+scripts/mm_natural_scroll
 scripts/vpn
 scripts/makesymlinks
 ptpython/config.py

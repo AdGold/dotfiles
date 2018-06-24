@@ -1,0 +1,2 @@
+mouse_id=$(xinput list | grep 's Mouse' | egrep -o "[[:digit:]]{2}") 
+$(xinput set-button-map $mouse_id 1 2 3 5 4)
