@@ -18,6 +18,10 @@ Host unsw2
     HostName williams.cse.unsw.edu.au
     User z5076514
 
+Host katana
+    HostName katana.science.unsw.edu.au
+    User z5076514
+
 Host vps
     HostName aura.comk.id.au
     Port 50210
