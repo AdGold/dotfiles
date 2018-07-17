@@ -227,3 +227,11 @@ export LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
 
 export GOPATH="$HOME/go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/cuda-9.0/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64
+
+export DYLD_LIBRARY_PATH=/usr/local/cuda/lib
+#:$DYLD_LIBRARY_PATH
+
