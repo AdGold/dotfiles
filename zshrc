@@ -55,7 +55,7 @@ plugins=(git)
 
 # User configuration
 
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -141,9 +141,14 @@ alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-s
 alias remount_all="sudo mount -o remount,rw /media/$USER/*"
 alias xpdf="zathura"
 
-if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]
+#virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/virtualenvs
+wrapper_loc="$HOME/.local/bin/virtualenvwrapper.sh"
+
+if [ -f $wrapper_loc ]
 then
-    source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+    source $wrapper_loc
 fi
 
 [[ -n $DISPLAY ]] && xmodmap ~/.xmodmaprc
