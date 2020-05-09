@@ -114,7 +114,7 @@ alias mem="free -th"
 alias addp="smplayer -add-to-playlist"
 alias fuck='sudo $(fc -ln -1)'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
-alias py="ptpython"
+alias py="py3"
 alias py2="python2"
 alias py3="python3"
 alias g14="g++ -std=c++14"
@@ -140,6 +140,8 @@ alias t="tmux"
 alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
 alias remount_all="sudo mount -o remount,rw /media/$USER/*"
 alias xpdf="zathura"
+# Make commands copied from online nice
+alias nano=vim
 
 #virtualenvwrapper
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
@@ -235,3 +237,4 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/ex
 export DYLD_LIBRARY_PATH=/usr/local/cuda/lib
 #:$DYLD_LIBRARY_PATH
 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

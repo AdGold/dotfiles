@@ -13,8 +13,8 @@ call vundle#begin()
 " required! 
 Bundle 'gmarik/Vundle.vim'
 
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'rdnetto/YCM-Generator'
+" Bundle 'Valloric/YouCompleteMe'
+" Bundle 'rdnetto/YCM-Generator'
 " Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Plugin 'KabbAmine/zeavim.vim'
@@ -23,7 +23,9 @@ Plugin 'KabbAmine/zeavim.vim'
 Plugin 'ConradIrwin/vim-bracketed-paste.git'
 
 " Better JS support
-Bundle 'jelera/vim-javascript-syntax'
+" Bundle 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 " Colour RGB appropriately
 Bundle 'ap/vim-css-color'
 " Tags
@@ -35,7 +37,7 @@ Plugin 'airblade/vim-gitgutter'
 Bundle 'ctrlpvim/ctrlp.vim'
 " Make python nice
 " Bundle 'klen/python-mode'
-Bundle 'python-mode/python-mode'
+" Bundle 'python-mode/python-mode'
 " Colour scheme
 Bundle 'nanotech/jellybeans.vim'
 " Nice status bar
@@ -47,9 +49,6 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 Plugin 'luochen1990/rainbow'
 " Better Haskell indenting/highlighting
 Bundle 'neovimhaskell/haskell-vim'
-" Conceals in Haskell and Python
-" Bundle 'ehamberg/vim-cute-python'
-" Bundle 'Twinside/vim-haskellConceal'
 " Haskell completion
 Bundle 'eagletmt/neco-ghc'
 " Language aware commenting
@@ -122,7 +121,7 @@ vnoremap ; :
 " Switch mode using jk
 inoremap jk <esc>
 " vnoremap jk <esc>
-inoremap <esc> <nop>
+" inoremap <esc> <nop>
 " needed so that vim still understands escape sequences
 inoremap <esc>^[ <esc>^[
 
@@ -254,14 +253,14 @@ nnoremap j gj
 nnoremap k gk
 
 " Don't use arrow keys!!
-nnoremap <Up> <nop>
-nnoremap <Down> <nop>
-nnoremap <Left> <nop>
-nnoremap <Right> <nop>
-inoremap <Up> <nop>
-inoremap <Down> <nop>
-inoremap <Left> <nop>
-inoremap <Right> <nop>
+" nnoremap <Up> <nop>
+" nnoremap <Down> <nop>
+" nnoremap <Left> <nop>
+" nnoremap <Right> <nop>
+" inoremap <Up> <nop>
+" inoremap <Down> <nop>
+" inoremap <Left> <nop>
+" inoremap <Right> <nop>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -276,7 +275,7 @@ nnoremap ]Q :clast<CR>
 " }}}
 " Compilation cmds {{{
 " compiling with make
-set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++14\"
+set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++17\"
 autocmd FileType c noremap <F5> :make<CR>
 autocmd FileType c noremap <F6> :!./%:r<CR>
 autocmd FileType cpp noremap <F5> :make<CR>
@@ -394,21 +393,12 @@ augroup QFClose
   autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 augroup END
 " }}}
-" Javascript folds {{{
+" Javascript improvements {{{
 " Javascript folding that doesn't suck
-let javaScript_fold=1
-autocmd FileType javascript call JavaScriptFold()
-" }}}
-" C++ Conceals {{{
-" Conceal
-set conceallevel=2
-highlight Conceal ctermbg=234 ctermfg=81
-function! SetCppConceals()
-    syntax match cppSmartPtr "\(std::\)\?unique_ptr" conceal cchar=●
-    syntax match cppSmartPtr "\(std::\)\?shared_ptr" conceal cchar=◆
-    syntax match cppSmartPtr "\(std::\)\?weak_ptr" conceal cchar=▲
-endfunction
-autocmd FileType cpp call SetCppConceals()
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
 " }}}
 " }}}
 " Plugin settings {{{
@@ -474,6 +464,7 @@ let g:NERDCustomDelimiters = {
     \ 'haskell': { 'left': '--', 'leftAlt': '{-', 'rightAlt': '-}' },
     \ 'zinc': { 'left': '%', 'leftAlt': '/*', 'rightAlt': '*/' },
     \ 'python': { 'left': '#', 'leftAlt': "'''", 'rightAlt': "'''" },
+    \ 'pyrex': { 'left': '#', 'leftAlt': "'''", 'rightAlt': "'''" },
 \ }
 
 " Use <leader>/ to toggle comment
@@ -538,6 +529,9 @@ let g:haskell_enable_static_pointers = 1 " enable highlighting of static
 " }}}
 " Misc plugin settings {{{
 let zinc_no_highlight_overlong = 1
+
+" This allows jsx syntax highlighting in js files
+let g:jsx_ext_required = 0
 
 " NERDTree settings
 noremap <C-N> :NERDTreeToggle<CR>
