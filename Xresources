@@ -69,7 +69,7 @@ URxvt.clipboard.pastecmd: xsel -ob
 
 !set font and size
 ! URxvt.font:     xft:bitstream vera sans mono:size=17:antialias=true
-URxvt.boldFont: xft:bitstream vera sans mono:bold:size=17:antialias=true
+! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=17:antialias=true
 ! URxvtfont : --dejavu sans mono-----------iso8859-
 
 ! black
@@ -107,5 +107,9 @@ URxvt*color15: #FFFFFF
 
 ! URxvt.font: xft:Terminess Powerline:size=13
 ! URxvt.font: xft:mononoki Nerd Font Complete-15
-URxvt.font: xft:DejaVu Sans Mono for Powerline-15
+! URxvt.font: xft:DejaVu Sans Mono for Powerline-15
+! URxvt.font: xft:DejaVu Sans Mono for Powerline-15
+URxvt.font: xft:DejaVuSansMono Nerd Font Mono:size=16
+URxvt.boldFont: xft:DejaVuSansMono Nerd Font Mono:style=Bold:size=16
+! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=17:antialias=true
 ! URxvt.font: xft:Inconsolata for Powerline:size=12:style=Medium
