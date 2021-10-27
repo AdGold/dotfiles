@@ -1,3 +1,4 @@
+
 export TERM="xterm-256color"
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -55,8 +56,7 @@ plugins=(git)
 
 # User configuration
 
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.local/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.local/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,25 +85,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-function ranger-cd {
-    tempfile=$(mktemp)
-    \ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
-    test -f "$tempfile" &&
-    if [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-        cd -- "$(cat "$tempfile")"
-    fi
-    rm -f -- "$tempfile"
-}
-
-function carry-ranger-cd {
-    ranger-cd
-    VISUAL=true zle edit-command-line
-}
-
 export PATH="$HOME/opt/:$PATH"
 export PATH="$HOME/.scripts/:$PATH"
-export PATH="/opt/MiniZincIDE:$PATH"
-export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
 alias copy="xsel -ib"
 alias paste="xsel -ob"
@@ -114,6 +97,7 @@ alias mem="free -th"
 alias addp="smplayer -add-to-playlist"
 alias fuck='sudo $(fc -ln -1)'
 #alias grep="/usr/bin/grep $GREP_OPTIONS"
+alias pip="pip3"
 alias py="py3"
 alias py2="python2"
 alias py3="python3"
@@ -130,7 +114,6 @@ alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
-alias whichap='ap=`iwconfig wlp1s0 | grep Access | tr " " "\n" | grep -1 Point | tail -n1 | tr A-Z a-z` && cat ~/Dropbox/Uploads/WifiAnalyzer_Alias.txt | grep "$ap" || echo $ap'
 alias di="vim -d"
 alias vim='vim --servername VIM'
 alias fixwifi="sudo /bin/systemctl restart NetworkManager.service"
@@ -176,35 +159,75 @@ bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd v edit-command-line
 
 function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
     zle reset-prompt
 }
+
+function do-ranger {
+    local RANGER_PID
+    echo a
+    if RANGER_PID=$(tmux list-panes -s -F '#{pane_pid}' -t ranger 2> /dev/null); then
+        echo b
+        # Leave the current cwd for ranger to read and cleanup.
+        pwd > /tmp/zranger-cwd-$UID
+        # Detach the other zranger instance...
+        echo c
+        tmux detach-client -s ranger
+        # ...and give it some time to read ranger's cwd before it changes.
+        echo d
+        sleep 0.05              # May need some tweaking.
+        # Tell ranger to read zsh's cwd from /tmp and cd to it.
+        echo e
+        kill -SIGUSR1 $RANGER_PID
+        echo f
+        # Attach to it.
+        TMUX='' tmux attach -t ranger
+    else
+        TMUX='' tmux new-session -s ranger 'exec ranger'
+    fi
+
+    # A second check needed because the process could have been
+    # started or stopped in the meantime.
+    if RANGER_PID=$(tmux list-panes -s -F '#{pane_pid}' -t ranger 2> /dev/null); then
+        cd -P /proc/$RANGER_PID/cwd
+    fi
+}
+
+function ranger-cd {
+    tempfile=$(mktemp)
+    \ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
+    test -f "$tempfile" &&
+    if [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+
+function carry-ranger-cd {
+    ranger-cd
+    zle accept-line
+}
+
+zle -N carry-ranger-cd
+bindkey '^E' carry-ranger-cd
+bindkey '^[[2~' carry-ranger-cd
 
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=20
 
-zle -N carry-ranger-cd
-bindkey '^E' carry-ranger-cd
-
-# Robocup stuff
-export RUNSWIFT_CHECKOUT_DIR="/home/adrian/rUNSWift"
-export PATH="$RUNSWIFT_CHECKOUT_DIR/bin:$PATH"
-export CTC_DIR="/home/adrian/rUNSWift/ctc/ctc-linux64-atom-2.1.3.3"
+setxkbmap -option caps:none
+xmodmap -e "keycode 66 = Insert"
+FPATH="$HOME/.git_installs/zranger:$FPATH"
+autoload -U zranger
+# bindkey -s '^E' " zranger>/dev/null 2>&1\n"
+bindkey -s '\ez' " zranger>/dev/null 2>&1\n"
 
 if [ -f ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-function zsh_last_status() {
-  if [[ $RETVAL -ne 0 ]]; then
-    echo -n "%F{red}✘"
-  else
-    echo -n "%F{green}✓"
-  fi
-}
 
 # powerline prompt zsh settings
 # POWERLEVEL9K_MODE='awesome-patched'
@@ -213,28 +236,18 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 # prompt order
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status battery time dir vcs virtualenv)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_status dir vcs virtualenv)
-POWERLEVEL9K_BATTERY_LOW_THRESHOLD=15
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status command_execution_time host dir vcs virtualenv)
+# POWERLEVEL9K_BATTERY_LOW_THRESHOLD=15
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vi_mode)
-POWERLEVEL9K_VCS_HIDE_TAGS=true
+# POWERLEVEL9K_VCS_HIDE_TAGS=true
 # POWERLEVEL9K_VCS_UNTRACKED_ICON=''
-POWERLEVEL9K_CUSTOM_STATUS="zsh_last_status"
-POWERLEVEL9K_CUSTOM_STATUS_BACKGROUND="black"
-
-export GUROBI_HOME="/opt/gurobi702/linux64"
-export PATH="${PATH}:${GUROBI_HOME}/bin"
-export LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
-# export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+# POWERLEVEL9K_CUSTOM_STATUS_BACKGROUND="black"
 
 export GOPATH="$HOME/go"
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-export PATH="/usr/local/cuda-9.0/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64
-
-export DYLD_LIBRARY_PATH=/usr/local/cuda/lib
-#:$DYLD_LIBRARY_PATH
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
