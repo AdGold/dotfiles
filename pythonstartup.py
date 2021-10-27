@@ -12,18 +12,20 @@ class Prompt:
 
     def __str__(self):
         try:
-            if _ not in [history[-1], None, history]:
+            if all(_ is not x for x in [history[-1], None, history]):
                 history.append(copy.deepcopy(_))
         except NameError:
             pass
         except TypeError:  # weird object.__new__(self) not safe error
             pass
+        except Exception as ex:
+            return 'EXCEPTION(%s)\n>>>' % ex
         try:
             return self.str % len(history)
         except TypeError:  # history was overwritten)
             return 'h[X] >>> '
         except Exception as ex:
-            return 'EXCEPTION(%s)' % ex
+            return 'EXCEPTION(%s)\n>>>' % ex
 
     def __radd__(self, other):
         return str(other) + str(self)
