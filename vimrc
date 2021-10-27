@@ -26,6 +26,8 @@ Plugin 'ConradIrwin/vim-bracketed-paste.git'
 " Bundle 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+" Typescript
+Plugin 'leafgarland/typescript-vim'
 " Colour RGB appropriately
 Bundle 'ap/vim-css-color'
 " Tags
@@ -137,9 +139,13 @@ nnoremap <leader>m <C-v>
 
 " Reduce from 3 keystrokes to 1 to save file
 nnoremap S :w<CR>
+nnoremap Q :q<CR>
 
 " Dot command works on ranges
 xnoremap . :normal .<CR>
+
+" CtrlP shortcut
+map <leader>p <C-p>
 
 " Push argument in parameter list forward/backward
 nnoremap <leader>k :SidewaysRight<CR>
@@ -281,6 +287,10 @@ autocmd FileType c noremap <F6> :!./%:r<CR>
 autocmd FileType cpp noremap <F5> :make<CR>
 autocmd FileType cpp noremap <F6> :!./%:r<CR>
 
+" Typescript test/lint
+autocmd FileType typescript noremap <leader>f :w<CR>:!npm run fix<CR>
+autocmd FileType typescript noremap <F6> :!npm run test<CR>
+
 " latex compile
 " autocmd FileType tex noremap <F5> :!latexmk % -pdf<CR>
 autocmd FileType tex noremap <F5> :!latexmk -e '$pdflatex=q/pdflatex \%O -shell-escape \%S/' % -pdf<CR>
@@ -393,8 +403,12 @@ augroup QFClose
   autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 augroup END
 " }}}
-" Javascript improvements {{{
+" Javascript/Typescript improvements {{{
 " Javascript folding that doesn't suck
+
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+
 augroup javascript_folding
     au!
     au FileType javascript setlocal foldmethod=syntax
@@ -437,12 +451,14 @@ noremap <leader>gf :YcmCompleter FixIt<CR>
 " Syntastic settings {{{
 
 " Make syntastic work nicer
-let g:syntastic_enable_balloons = 1
-" pylint gives me the shits.
-let g:syntastic_python_checkers = ['flake8', 'pyflakes']
-" Don't whinge about c++11, you brat!
-let g:syntastic_cpp_compiler_options = '-I${HOME}/openmpi/env/include -std=c++11'
-let g:syntastic_auto_loc_list=1
+let g:syntastic_enable_balloons = 0
+" let g:syntastic_python_checkers = ['flake8', 'pyflakes']
+let g:syntastic_cpp_compiler_options = '-I${HOME}/openmpi/env/include -std=c++17'
+" let g:syntastic_typescript_checkers = ['eslint']
+let g:syntastic_aggregate_errors = 0
+" let g:syntastic_debug = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_auto_loc_list=1
 
 noremap <leader>s :SyntasticToggleMode<CR>
 
@@ -450,10 +466,19 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠️"
+let g:syntastic_style_error_symbol = '⁉️'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 
 " }}}
 " NERDCommenter settings {{{
@@ -532,6 +557,9 @@ let zinc_no_highlight_overlong = 1
 
 " This allows jsx syntax highlighting in js files
 let g:jsx_ext_required = 0
+
+" TS
+" let g:typescript_compiler_binary = 'tsc'
 
 " NERDTree settings
 noremap <C-N> :NERDTreeToggle<CR>
