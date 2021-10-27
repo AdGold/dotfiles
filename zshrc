@@ -217,8 +217,10 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=20
 
-setxkbmap -option caps:none
-xmodmap -e "keycode 66 = Insert"
+if type "$foobar_command_name" > /dev/null; then
+    setxkbmap -option caps:none
+    xmodmap -e "keycode 66 = Insert"
+fi
 FPATH="$HOME/.git_installs/zranger:$FPATH"
 autoload -U zranger
 # bindkey -s '^E' " zranger>/dev/null 2>&1\n"
