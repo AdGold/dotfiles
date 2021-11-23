@@ -217,7 +217,7 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=20
 
-if type "$foobar_command_name" > /dev/null; then
+if type xmodmap > /dev/null; then
     setxkbmap -option caps:none
     xmodmap -e "keycode 66 = Insert"
 fi
