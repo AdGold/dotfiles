@@ -42,6 +42,8 @@ Bundle 'ctrlpvim/ctrlp.vim'
 " Bundle 'python-mode/python-mode'
 " Colour scheme
 Bundle 'nanotech/jellybeans.vim'
+Plugin 'dracula/vim', { 'name': 'dracula' }
+" Plugin 'zenorocha/dracula-theme',{'rtp':'vim/'}
 " Nice status bar
 Bundle 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -178,7 +180,9 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
-colorscheme jellybeans
+let g:dracula_colorterm=0
+colorscheme dracula
+" highlight Normal ctermbg=None
 
 set ruler	                	" show the cursor position all the time
 set showcmd	                	" display incomplete commands
@@ -498,7 +502,7 @@ map <leader>/ <leader>c<space>
 " Powerline/airline settings {{{
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
-let g:airline_theme='murmur'
+let g:airline_theme='dracula'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
