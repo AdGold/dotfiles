@@ -41,7 +41,7 @@ Bundle 'ctrlpvim/ctrlp.vim'
 " Bundle 'klen/python-mode'
 " Bundle 'python-mode/python-mode'
 " Colour scheme
-Bundle 'nanotech/jellybeans.vim'
+" Bundle 'nanotech/jellybeans.vim'
 Plugin 'dracula/vim', { 'name': 'dracula' }
 " Plugin 'zenorocha/dracula-theme',{'rtp':'vim/'}
 " Nice status bar
@@ -118,33 +118,22 @@ set wildmode=list:longest,list:full  " List all matches and complete till longes
 nnoremap <leader>cv :vsplit $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:filetype detect<CR>
 
-" No need to press shift all the time
 nnoremap ; :
 vnoremap ; :
-
-" Switch mode using jk
-inoremap jk <esc>
-" vnoremap jk <esc>
-" inoremap <esc> <nop>
-" needed so that vim still understands escape sequences
-inoremap <esc>^[ <esc>^[
-
-" Ranger
-" noremap <C-a> :silent !ranger %:h<cr>:redraw!<CR>
-
-" Sorting is useful
 vnoremap S :sort<CR>
-
-" C-v is mapped to paste so remap
-nnoremap <C-m> <C-v>
-nnoremap <leader>m <C-v>
-
-" Reduce from 3 keystrokes to 1 to save file
 nnoremap S :w<CR>
 nnoremap Q :q<CR>
 
 " Dot command works on ranges
 xnoremap . :normal .<CR>
+" Switch mode using jk
+inoremap jk <esc>
+" needed so that vim still understands escape sequences
+inoremap <esc>^[ <esc>^[
+
+" C-v is mapped to paste so remap
+nnoremap <C-m> <C-v>
+nnoremap <leader>m <C-v>
 
 " CtrlP shortcut
 map <leader>p <C-p>
@@ -152,9 +141,6 @@ map <leader>p <C-p>
 " Push argument in parameter list forward/backward
 nnoremap <leader>k :SidewaysRight<CR>
 nnoremap <leader>j :SidewaysLeft<CR>
-" using text objects from target.vim
-" nmap <leader>k "zdIa"y2xvIava, jk"zp
-" nmap <leader>j vIlav<leader>kvIlav
 
 " }}}
 " Indentation {{{
@@ -262,26 +248,9 @@ vnoremap <tab> %
 nnoremap j gj
 nnoremap k gk
 
-" Don't use arrow keys!!
-" nnoremap <Up> <nop>
-" nnoremap <Down> <nop>
-" nnoremap <Left> <nop>
-" nnoremap <Right> <nop>
-" inoremap <Up> <nop>
-" inoremap <Down> <nop>
-" inoremap <Left> <nop>
-" inoremap <Right> <nop>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
-" }}}
-" QuickFix helpers {{{
-nnoremap [q :cprev<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
 " }}}
 " Compilation cmds {{{
 " compiling with make
@@ -298,9 +267,6 @@ autocmd FileType typescript noremap <F6> :!npm run test<CR>
 " latex compile
 " autocmd FileType tex noremap <F5> :!latexmk % -pdf<CR>
 autocmd FileType tex noremap <F5> :!latexmk -e '$pdflatex=q/pdflatex \%O -shell-escape \%S/' % -pdf<CR>
-
-" MiniZinc run
-autocmd FileType zinc noremap <F5> :!minisearch %<CR>
 " }}}
 " Hex editor functionality {{{
 
@@ -382,30 +348,6 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-" }}}
-" Python virtualenv fixes {{{
-" Now, make python work with virtualenvs:
-if has("python") && !empty($VIRTUAL_ENV)
-  python << EOF
-import os
-import sys
-a = os.environ['VIRTUAL_ENV'] + '/bin/activate_this.py'
-execfile(a, dict(__file__ = a))
-if 'PYTHONPATH' not in os.environ:
-    os.environ['PYTHONPATH'] = ''
-    os.environ['PYTHONPATH'] += os.getcwd()+":"
-    os.environ['PYTHONPATH'] += ":".join(sys.path)
-EOF
-endif
-" }}}
-" QuickFix close {{{
-" QuickFix close function; :q should close a window *and* the accompanying
-" quickfix
-augroup QFClose
-  autocmd!
-  " if |q| doesn't work use |cclose| ?
-  autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-augroup END
 " }}}
 " Javascript/Typescript improvements {{{
 " Javascript folding that doesn't suck
@@ -512,7 +454,7 @@ endif
 " let g:airline_symbols.linenr = '␤'
 " let g:airline_symbols.linenr = '¶'
 " let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'ρ'
 " let g:airline_symbols.paste = '⎘ ρ'
 " let g:airline_symbols.paste = 'Þ'
 " let g:airline_symbols.paste = '∥'
@@ -541,29 +483,9 @@ let g:pymode_breakpoint_bind = '<leader>p'
 " Don't automatically regenerate rope project cache on saving changes
 let g:pymode_rope_regenerate_on_write = 0
 " }}}
-" Haskell settings {{{
-let g:necoghc_enable_detailed_browse = 1
-
-" haskell supertab
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" Haskell syntax highlighting
-let g:haskell_enable_quantification = 1 " enable highlighting of forall
-let g:haskell_enable_recursivedo = 1 " enable highlighting of mdo and rec
-let g:haskell_enable_arrowsyntax = 1 " enable highlighting of proc
-let g:haskell_enable_pattern_synonyms = 1 " enable highlighting of pattern
-let g:haskell_enable_typeroles = 1 " enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1 " enable highlighting of static
-" }}}
 " Misc plugin settings {{{
-let zinc_no_highlight_overlong = 1
-
 " This allows jsx syntax highlighting in js files
 let g:jsx_ext_required = 0
-
-" TS
-" let g:typescript_compiler_binary = 'tsc'
 
 " NERDTree settings
 noremap <C-N> :NERDTreeToggle<CR>
