@@ -11,11 +11,14 @@ gitignore
 pythonstartup.py
 xinitrc
 config/ranger/rc.conf
+config/ranger/colorschemes/dracula.py
 config/zathura/zathurarc
 config/redshift.conf
 tmux.conf
 config/tmux/screenline.conf
 config/tmux/tmuxline.conf
+config/kitty/dracula.conf
+config/kitty/kitty.conf
 ssh/config
 gtkrc-2.0
 urxvt/ext/tabbedex
