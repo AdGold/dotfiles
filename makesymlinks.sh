@@ -31,7 +31,7 @@ scripts/makesymlinks
 
 cd $dir
 
-dotfolders="ptpython ssh i3 config/touchegg config/ranger config/tmux screenlayout urxvt/ext scripts"
+dotfolders="ptpython ssh i3 config/touchegg config/ranger/colorschemes config/zathura config/tmux screenlayout urxvt/ext scripts"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
