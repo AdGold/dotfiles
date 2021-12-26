@@ -2,144 +2,38 @@ Host orac
     HostName orac.amt.edu.au
     User adgold
 
-Host aioc
-    HostName aioc-core.cloudapp.net
-    User adgold
+Host pip
+    HostName shell.srcf.net
+    User ag2198
 
-Host maple
-    HostName sigma3.maths.unsw.edu.au
-    User z5076514
+Host gate
+    HostName gate.eng.cam.ac.uk
+    User ag2198
+    ForwardAgent yes
 
-Host unsw
-    HostName wagner.cse.unsw.edu.au
-    User z5076514
+Host ulam
+    HostName ulam.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
+    ForwardAgent yes
 
-Host unsw2
-    HostName williams.cse.unsw.edu.au
-    User z5076514
+Host hinton
+    HostName hinton.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
+    ForwardAgent yes
 
-Host katana
-    HostName katana.science.unsw.edu.au
-    User z5076514
+Host cblgpu07
+    HostName %h.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
+    ForwardAgent yes
+    
+Host cblgpu??
+    HostName %h.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
+    ForwardAgent yes
 
-Host vps
-    HostName aura.comk.id.au
-    Port 50210
-    User algogod
-
-Host home
-    HostName 220.237.116.87
-    #HostName 192.168.0.105
-    Port 9151
-    User adrian
-
-Host jugglesim
-    HostName jugglesim.com
-    User adrian
-
-Host room
-    HostName 192.168.0.4
-    User adrian
-
-Host boomer
-  Hostname boomer.local
-  HostKeyAlias boomer
-  CheckHostIP no
-  User nao
-
-Host hunter
-  Hostname hunter.local
-  HostKeyAlias hunter
-  CheckHostIP no
-  User nao
-
-Host tank
-  Hostname tank.local
-  HostKeyAlias tank
-  CheckHostIP no
-  User nao
-
-Host witch
-  Hostname witch.local
-  HostKeyAlias witch
-  CheckHostIP no
-  User nao
-
-Host smoker
-  Hostname smoker.local
-  HostKeyAlias smoker
-  CheckHostIP no
-  User nao
-
-Host mario
-  Hostname mario.local
-  HostKeyAlias mario
-  CheckHostIP no
-  User nao
-
-Host peach
-  Hostname peach.local
-  HostKeyAlias peach
-  CheckHostIP no
-  User nao
-
-Host bowser
-  Hostname bowser.local
-  HostKeyAlias bowser
-  CheckHostIP no
-  User nao
-
-Host luigi
-  Hostname luigi.local
-  HostKeyAlias luigi
-  CheckHostIP no
-  User nao
-
-Host toad
-  Hostname toad.local
-  HostKeyAlias toad
-  CheckHostIP no
-  User nao
-
-Host yoshi
-  Hostname yoshi.local
-  HostKeyAlias yoshi
-  CheckHostIP no
-  User nao
-
-Host starbuck
-  Hostname starbuck.local
-  HostKeyAlias starbuck
-  CheckHostIP no
-  User nao
-
-Host apollo
-  Hostname apollo.local
-  HostKeyAlias apollo
-  CheckHostIP no
-  User nao
-
-Host athena
-  Hostname athena.local
-  HostKeyAlias athena
-  CheckHostIP no
-  User nao
-
-Host helo
-  Hostname helo.local
-  HostKeyAlias helo
-  CheckHostIP no
-  User nao
-
-Host hotdog
-  Hostname hotdog.local
-  HostKeyAlias hotdog
-  CheckHostIP no
-  User nao
-
-Host husker
-  Hostname husker.local
-  HostKeyAlias husker
-  CheckHostIP no
-  User nao
-
+Host *
+    ServerAliveInterval 60
