@@ -1,5 +1,11 @@
 import sys, os, string, time, readline, rlcompleter, copy
+from collections import Counter
+from jax import numpy as jnp
+from matplotlib import pyplot as plt
 import itertools, collections
+import math
+import matplotlib
+import numpy as onp
 
 readline.parse_and_bind("C-spc: complete")
 
@@ -31,7 +37,7 @@ class Prompt:
         return str(other) + str(self)
 
 
-if os.environ.get('TERM') in ['xterm', 'vt100', 'rxvt-unicode']:
+if os.environ.get('TERM') in ['xterm', 'xterm-kitty', 'rxvt-unicode']:
     sys.ps1 = Prompt('\001\033[0:1;31m\002h[%d] >>> \001\033[0m\002')
 else:
     sys.ps1 = Prompt()
