@@ -6,9 +6,19 @@ Host pip
     HostName shell.srcf.net
     User ag2198
 
+Host hpc
+    HostName login-icelake.hpc.cam.ac.uk
+    User ag2198
+
 Host gate
     HostName gate.eng.cam.ac.uk
     User ag2198
+    ForwardAgent yes
+
+Host euclid
+    HostName euclid.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
     ForwardAgent yes
 
 Host ulam
