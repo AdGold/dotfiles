@@ -114,6 +114,8 @@ alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-s
 # Make commands copied from online nice
 alias nano=vim
 
+alias restart_touchpad="_ rmmod hid_multitouch; _ modprobe hid_multitouch"
+
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
 export EDITOR="vim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
@@ -210,3 +212,8 @@ export PATH="$GOPATH:$GOPATH/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
