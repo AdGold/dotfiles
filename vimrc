@@ -254,7 +254,7 @@ endif
 " }}}
 " Compilation cmds {{{
 " compiling with make
-set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++17\"
+set makeprg=make\ -B\ %:r\ CXXFLAGS=\"-g\ -std=c++20\"
 autocmd FileType c noremap <F5> :make<CR>
 autocmd FileType c noremap <F6> :!./%:r<CR>
 autocmd FileType cpp noremap <F5> :make<CR>
@@ -399,7 +399,7 @@ noremap <leader>gf :YcmCompleter FixIt<CR>
 " Make syntastic work nicer
 let g:syntastic_enable_balloons = 0
 " let g:syntastic_python_checkers = ['flake8', 'pyflakes']
-let g:syntastic_cpp_compiler_options = '-I${HOME}/openmpi/env/include -std=c++17'
+let g:syntastic_cpp_compiler_options = '-I${HOME}/openmpi/env/include -std=c++20'
 " let g:syntastic_typescript_checkers = ['eslint']
 let g:syntastic_aggregate_errors = 0
 " let g:syntastic_debug = 1
