@@ -9,6 +9,14 @@ Host pip
 Host hpc
     HostName login-icelake.hpc.cam.ac.uk
     User ag2198
+    ControlMaster auto
+    ControlPath ~/.ssh/control-%C
+    ControlPersist 900
+
+Host login*.hpc.cam.ac.uk
+    ControlMaster auto
+    ControlPath ~/.ssh/control-%C
+    ControlPersist 900
 
 Host gate
     HostName gate.eng.cam.ac.uk
