@@ -15,11 +15,19 @@ Host gate
     User ag2198
     ForwardAgent yes
 
+Host cblgpu06
+    HostName cblgpu06.eng.cam.ac.uk
+    User ag2198
+    ProxyJump gate
+    ForwardAgent yes
+    LocalForward 1234 localhost:1234
+
 Host euclid
     HostName euclid.eng.cam.ac.uk
     User ag2198
     ProxyJump gate
     ForwardAgent yes
+    LocalForward 1234 localhost:1234
 
 Host ulam
     HostName ulam.eng.cam.ac.uk
