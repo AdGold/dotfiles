@@ -81,6 +81,9 @@ Plugin 'lervag/vimtex'
 " Debugging in vim
 Plugin 'joonty/vdebug'
 
+" vim - tmux interoperability
+Plugin 'christoomey/vim-tmux-navigator'
+
 " Fancy icons
 " Plugin 'ryanoasis/vim-devicons'
 
@@ -201,11 +204,11 @@ endif
 " Make 'U' perform a redo operation (a sensible inverse of 'u')
 nnoremap U <C-r>
 " }}}
-" Vimscript file settings {{{
-augroup filetype_vim
+" Config file settings {{{
+augroup filetype_conf
     autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-    autocmd FileType vim setlocal foldlevel=0
+    autocmd FileType vim,tmux,zsh setlocal foldmethod=marker
+    autocmd FileType vim,tmux,zsh setlocal foldlevel=0
 augroup END
 " }}}
 " Write settings {{{
@@ -293,11 +296,6 @@ endfunction
 " Y should do what it's expected to do (d$, D, c$, C)
 nnoremap Y y$
 
-" system clipboard stuff, not sure how much is needed
-set clipboard+=unnamed
-set clipboard+=unnamedplus
-set go+=a
-"
 " Allow Ctrl Shift C/V for copy/pasting to system
 vnoremap <silent> <C-c> "+y
 nnoremap <silent> <C-c> "+y
@@ -310,10 +308,11 @@ inoremap <silent> <C-v> <ESC>"+pa
 " Window splits {{{
 
 " Remap ctrl+arrows to move between window splits
-nnoremap <silent> <C-Up> :wincmd k<CR>
-nnoremap <silent> <C-Down> :wincmd j<CR>
-nnoremap <silent> <C-Left> :wincmd h<CR>
-nnoremap <silent> <C-Right> :wincmd l<CR>
+" covered by vim-tmux-navigator
+" nnoremap <silent> <C-Up> :wincmd k<CR>
+" nnoremap <silent> <C-Down> :wincmd j<CR>
+" nnoremap <silent> <C-Left> :wincmd h<CR>
+" nnoremap <silent> <C-Right> :wincmd l<CR>
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -356,8 +355,8 @@ autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 
 augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
+    autocmd!
+    autocmd FileType javascript setlocal foldmethod=syntax
 augroup END
 " }}}
 " }}}

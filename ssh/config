@@ -53,5 +53,10 @@ Host cblgpu??
     ProxyJump gate
     ForwardAgent yes
 
+Host server
+    HostName adgold.duckdns.org
+    User adrian
+    ForwardAgent yes
+
 Host *
     ServerAliveInterval 60

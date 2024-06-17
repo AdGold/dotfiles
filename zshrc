@@ -112,7 +112,8 @@ alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
 alias t="tmux"
 alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
 # Make commands copied from online nice
-alias nano=vim
+alias vim=nvim
+alias nano=nvim
 alias gu='nvidia-htop.py -c -l $((`tput cols`-64))'
 
 # Kitty's terminfo isn't always available through SSH
@@ -123,7 +124,7 @@ fi
 alias restart_touchpad="_ rmmod hid_multitouch; _ modprobe hid_multitouch"
 
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
-export EDITOR="vim"
+export EDITOR="nvim"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
 
 # set -o vi
@@ -230,3 +231,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 WANDB_DIR=~/scratch/wandb
 
+. "$HOME/.cargo/env"

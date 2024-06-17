@@ -14,8 +14,6 @@ config/zathura/zathurarc
 config/kitty/dracula.conf
 config/kitty/kitty.conf
 tmux.conf
-config/tmux/screenline.conf
-config/tmux/tmuxline.conf
 config/kitty/dracula.conf
 config/kitty/kitty.conf
 ssh/config
@@ -24,7 +22,7 @@ scripts/makesymlinks
 
 cd $dir
 
-dotfolders="ssh config/ranger/colorschemes config/zathura config/tmux scripts"
+dotfolders="ssh config/ranger/colorschemes config/zathura config/tmux scripts config/kitty"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done
