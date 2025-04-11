@@ -1,11 +1,7 @@
 import sys, os, string, time, readline, rlcompleter, copy
 from collections import Counter
-# from jax import numpy as jnp
-from matplotlib import pyplot as plt
 import itertools, collections
 import math
-import matplotlib
-import numpy as onp
 
 readline.parse_and_bind("C-spc: complete")
 
