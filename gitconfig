@@ -17,3 +17,5 @@
 
 [branch]
 	autoSetupRebase = always
+[init]
+	defaultBranch = main
