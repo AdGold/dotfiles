@@ -24,3 +24,5 @@
 	repo = /homes/ag2198/lr-batch-size/basic-image
 	repo = /homes/ag2198/low-dimensional-neural-networks
 	repo = /homes/ag2198/iterative-linearisation
+[url "git@github.com:"]
+	insteadOf = https://github.com
