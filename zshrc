@@ -111,10 +111,12 @@ alias update_all="sudo apt update; sudo apt upgrade -y; sudo apt dist-upgrade -y
 alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
 alias t="tmux"
 alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
+alias tq="tmux attach -t queue_daemon"
 # Make commands copied from online nice
 alias vim=nvim
 alias nano=nvim
 alias gu='nvidia-htop.py -c -l $((`tput cols`-64))'
+alias git-ssh='  git remote set-url origin git@github.com:$(    git remote get-url origin | sed 's/https:\/\/github.com\///' | sed 's/git@github.com://')'
 
 # Kitty's terminfo isn't always available through SSH
 if type "kitty" > /dev/null; then
@@ -224,7 +226,12 @@ fi
 export PATH="$GOPATH:$GOPATH/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+if [ -z "$LD_LIBRARY_PATH" ]
+then
+    export LD_LIBRARY_PATH=/usr/local/lib
+else
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -232,3 +239,12 @@ export NVM_DIR="$HOME/.nvm"
 WANDB_DIR=~/scratch/wandb
 
 . "$HOME/.cargo/env"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/homes/ag2198/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<
