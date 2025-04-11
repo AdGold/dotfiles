@@ -66,5 +66,17 @@ Host server
     User adrian
     ForwardAgent yes
 
+Host remarkable
+    HostName 10.247.34.148
+    User root
+
+Host elwood
+    HostName 100.76.159.107
+    User adrian
+
+Host adrian-server
+    HostName adrian-server
+    User adrian
+
 Host *
     ServerAliveInterval 60
