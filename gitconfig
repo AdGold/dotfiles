@@ -24,5 +24,8 @@
 	repo = /homes/ag2198/lr-batch-size/basic-image
 	repo = /homes/ag2198/low-dimensional-neural-networks
 	repo = /homes/ag2198/iterative-linearisation
+	repo = /home/adrian/Dropbox/Juggling/Siteswap programs/web/causal-editor
+	repo = /home/adrian/Dropbox/Juggling/Siteswap programs/web/Siteswap
+	repo = /home/adrian/Dropbox/Juggling/Siteswap programs/StateTransitionDiagrams
 [url "git@github.com:"]
 	insteadOf = https://github.com
