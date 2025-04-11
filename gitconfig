@@ -19,3 +19,8 @@
 	autoSetupRebase = always
 [init]
 	defaultBranch = main
+[maintenance]
+	repo = /homes/ag2198/nn-experiments
+	repo = /homes/ag2198/lr-batch-size/basic-image
+	repo = /homes/ag2198/low-dimensional-neural-networks
+	repo = /homes/ag2198/iterative-linearisation
