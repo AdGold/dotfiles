@@ -1,97 +1,97 @@
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+# P10k Instant Prompt {{{
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+# }}}
+# Zinit Setup {{{
+# Directoroy where zinit and plugins will be installed
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# Download zinit, if not already installed
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Load zinit
+source "$ZINIT_HOME/zinit.zsh"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
+# }}}
+# Plugins {{{
+# Load completions
+autoload -Uz compinit && compinit
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Add in p10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+# Add other plugins
+zinit light Aloxaf/fzf-tab
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit load MichaelAquilina/zsh-you-should-use
+zinit wait lucid for p1r473/zsh-color-logging
+zinit load zpm-zsh/colorize
+# Add in snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::command-not-found
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+zinit cdreplay -q
+# }}}
+# Completions {{{
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+#History
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+setopt hist_find_no_dups
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-# User configuration
-
+# PATH 1 {{{
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.local/bin"
-
-source $ZSH/oh-my-zsh.sh
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 export PATH="$HOME/opt/:$PATH"
 export PATH="$HOME/.scripts/:$PATH"
+if [[ ! "$PATH" == */home/adrian/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/home/adrian/.fzf/bin"
+fi
+# }}}
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
+eval "$(zoxide init --cmd cd zsh)"
+
+source <(fzf --zsh)
+enable-fzf-tab
+export FZF_DEFAULT_OPS="--extended"
+# }}}
+# Aliases {{{
+alias old_ls='/bin/ls'
+alias l='ls'
+alias ls='eza -hbro --group-directories-first'
+alias la='eza -lhbroa --group-directories-first'
+alias ll='eza -lhbro --group-directories-first'
+alias lt='eza -lhT --group-directories-first -L 2'
 alias copy="xsel -ib"
 alias paste="xsel -ob"
 alias pacin='sudo apt-get install'
 alias pacrem='sudo apt-get purge'
 alias mem="free -th"
 alias fuck='sudo $(fc -ln -1)'
-#alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias pip="pip3"
 alias py="py3"
 alias py3="python3"
@@ -105,10 +105,8 @@ alias r="ranger"
 alias sr="sudo ranger"
 alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
-alias di="vim -d"
-#alias vim='vim --servername VIM'
+alias di="nvim -d"
 alias update_all="sudo apt update; sudo apt upgrade -y; sudo apt dist-upgrade -y; sudo apt autoremove"
-alias ts='xinput set-prop "ELAN Touchscreen" "Device Enabled"'
 alias t="tmux"
 alias td="tmux -q has-session -t default && tmux attach -t default || tmux new-session -s default"
 alias tq="tmux attach -t queue_daemon"
@@ -124,28 +122,27 @@ if type "kitty" > /dev/null; then
 fi
 
 alias restart_touchpad="_ rmmod hid_multitouch; _ modprobe hid_multitouch"
-
-export PYTHONSTARTUP=$HOME/.pythonstartup.py
-export EDITOR="nvim"
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
-
-# set -o vi
+# }}}
+# Keybindings {{{
 bindkey -v
-bindkey '^P' up-history
-bindkey '^N' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
-
+# bindkey -M viins '^r' history-incremental-search-backward
+# bindkey -M vicmd '^r' history-incremental-search-backward
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd v edit-command-line
 
+# Use ctrl-f to accept autosuggestion
+# bindkey "^f" autosuggest-accept
+# Search forwards/backwards with ctrl p/n
+# bindkey "^p" history-search-backward
+# bindkey "^n" history-search-forward
+
+bindkey '^w' backward-kill-word
+# bindkey '^r' history-incremental-search-backward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+ 
+# }}}
+# Ranger cd {{{
 function zle-line-init zle-keymap-select {
     # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
@@ -157,7 +154,9 @@ function ranger-cd {
     \ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
     test -f "$tempfile" &&
     if [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-        cd -- "$(cat "$tempfile")"
+        # With zoxide, we can't use '--' to deal with folders starting with a dash, but zoxide seems to deal fine without this
+        # cd -- "$(cat "$tempfile")"
+        cd "$(cat "$tempfile")"
     fi
     rm -f -- "$tempfile"
 }
@@ -174,49 +173,26 @@ bindkey '^[[2~' carry-ranger-cd
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=20
+# }}}
+# Misc {{{
 
-if [ -f ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-then
-    source ~/.git_installs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Kitty's terminfo isn't always available through SSH
+if type "kitty" > /dev/null; then
+    alias ssh="kitty +kitten ssh"
 fi
 
-# powerline prompt zsh settings
-# POWERLEVEL9K_MODE='awesome-patched'
-# shorten directory path
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-# prompt order
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status command_execution_time host dir vcs virtualenv)
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# See .config/kitty/dracula.conf for colours
+setopt autocd
+setopt correct
 
-# Status red when error, else normal background
-POWERLEVEL9K_STATUS_OK_BACKGROUND=0
-POWERLEVEL9K_STATUS_OK_FOREGROUND=2
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND=9
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND=3
-POWERLEVEL9K_STATUS_ERROR_CR_BACKGROUND=9
-POWERLEVEL9K_STATUS_ERROR_CR_FOREGROUND=3
-# Execution time red
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=9
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=3
+export PYTHONSTARTUP=$HOME/.pythonstartup.py
+export EDITOR="nvim"
 
-POWERLEVEL9K_HOST_LOCAL_BACKGROUND=6
-POWERLEVEL9K_HOST_REMOTE_BACKGROUND=6
-POWERLEVEL9K_HOST_LOCAL_FOREGROUND=0
-POWERLEVEL9K_HOST_REMOTE_FOREGROUND=0
-
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=4
-
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND=2
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=2
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=2
-POWERLEVEL9K_VCS_CLOBBERED_BACKGROUND=2
-
-POWERLEVEL9K_VIRTUALENV_BACKGROUND=12
-
-
+. "$HOME/.cargo/env"
+# }}}
+# Paths 2 {{{
 if [ "$(hostname)" = euclid ]; then
     export GOPATH="$HOME/scratch/installs/go"
 else
@@ -248,3 +224,5 @@ path=('/homes/ag2198/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+# }}}

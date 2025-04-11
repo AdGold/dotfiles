@@ -5,6 +5,7 @@ olddir=~/.git_installs/dotfiles_old
 dotfiles="
 vimrc
 zshrc
+p10k.zsh
 gitconfig
 gitignore
 pythonstartup.py
