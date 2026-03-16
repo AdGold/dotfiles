@@ -226,3 +226,5 @@ export PATH
 # <<< juliaup initialize <<<
 
 # }}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

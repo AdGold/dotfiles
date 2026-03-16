@@ -78,5 +78,9 @@ Host adrian-server
     HostName adrian-server
     User adrian
 
+Host adrian-web
+    HostName diagonalrewards.com
+    User adrian
+
 Host *
     ServerAliveInterval 60
