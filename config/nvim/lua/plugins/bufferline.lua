@@ -1,0 +1,13 @@
+return {}
+--   "akinsho/bufferline.nvim",
+--   version = "*",
+--   dependencies = "nvim-tree/nvim-web-devicons",
+--   opts = {
+--       separator_style="slant"
+--   },
+--   config = function ()
+--     require('bufferline').setup({
+--     })
+--     vim.opt.termguicolors = true
+--   end
+-- }
