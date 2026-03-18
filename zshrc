@@ -59,8 +59,8 @@ setopt hist_find_no_dups
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.local/bin"
 export PATH="$HOME/opt/:$PATH"
 export PATH="$HOME/.scripts/:$PATH"
-if [[ ! "$PATH" == */home/adrian/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/home/adrian/.fzf/bin"
+if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
 fi
 # }}}
 # Completion styling
