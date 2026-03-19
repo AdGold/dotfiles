@@ -14,7 +14,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls", "eslint", "clangd", "pyright"}
+        ensure_installed = {"bash-language-server", "beautysh", "black", "clangd", "cpplint", "cspell-lsp", "css-lsp", "docker-compose-language-service", "docker-language-server", "eslint", "eslint-lsp", "fixjson", "flake8", "html-lsp", "isort", "lua_ls", "lua-language-server", "mdformat", "prettier", "prettierd", "pyright", "python-lsp-server", "stylua", "svelte-language-server", "typescript-language-server"},
       })
     end,
   },
