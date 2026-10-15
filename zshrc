@@ -121,7 +121,7 @@ if type "kitty" > /dev/null; then
     alias ssh="kitty +kitten ssh"
 fi
 
-alias restart_touchpad="_ rmmod hid_multitouch; _ modprobe hid_multitouch"
+alias restart_touchpad="sudo rmmod hid_multitouch; sudo modprobe hid_multitouch"
 # }}}
 # Keybindings {{{
 bindkey -v
