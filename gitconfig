@@ -29,3 +29,5 @@
 	repo = /home/adrian/Dropbox/Juggling/Siteswap programs/StateTransitionDiagrams
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com
+[safe]
+	directory = /home/adrian/Dropbox/Juggling/Siteswap programs/siteswap-playground-zip

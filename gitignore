@@ -18,3 +18,5 @@ ehthumbs.db
 
 # Python stuff
 __pycache__
+
+**/.claude/settings.local.json
