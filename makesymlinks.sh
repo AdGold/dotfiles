@@ -9,21 +9,21 @@ p10k.zsh
 gitconfig
 gitignore
 pythonstartup.py
-config/ranger/rc.conf
-config/ranger/colorschemes/dracula.py
+config/yazi/yazi.toml
+config/yazi/keymap.toml
+config/yazi/theme.toml
+config/yazi/init.lua
 config/zathura/zathurarc
 config/kitty/dracula.conf
 config/kitty/kitty.conf
 tmux.conf
-config/kitty/dracula.conf
-config/kitty/kitty.conf
 ssh/config
 scripts/makesymlinks
 "
 
 cd $dir
 
-dotfolders="ssh config/ranger/colorschemes config/zathura config/tmux scripts config/kitty"
+dotfolders="ssh config/yazi config/zathura config/tmux scripts config/kitty"
 for folder in $dotfolders; do
     mkdir -p ~/.$folder
 done

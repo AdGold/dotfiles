@@ -1,0 +1,126 @@
+# ~/.config/yazi/keymap.toml
+# Prepended rules take priority over yazi's defaults.
+
+[mgr]
+prepend_keymap = [
+  # ── Cursor movement without wraparound ──
+  { on = "j",      run = "arrow 1",  desc = "Move cursor down" },
+  { on = "k",      run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
+  { on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
+  { on = "<C-n>",  run = "arrow 1",  desc = "Move cursor down" },
+  { on = "<C-p>",  run = "arrow -1", desc = "Move cursor up" },
+
+  # ── Remote servers (sftp, see vfs.toml) ──
+  { on = [ "g", "a" ], run = "cd sftp://adrian-server", desc = "adrian-server" },
+  { on = [ "g", "e" ], run = "cd sftp://elwood-server", desc = "elwood-server" },
+  { on = [ "g", "w" ], run = "cd sftp://adrian-web",    desc = "adrian-web" },
+
+  # ── Jumps (defaults kept: gh home, gc ~/.config, gt trash) ──
+  { on = [ "g", "/" ], run = "cd /",           desc = "Root" },
+  { on = [ "g", "m" ], run = "cd /media",      desc = "Media" },
+  { on = [ "g", "b" ], run = "cd ~/Dropbox",   desc = "Dropbox" },
+  { on = [ "g", "d" ], run = "cd ~/Documents", desc = "Documents" },
+  { on = [ "g", "D" ], run = "cd ~/Downloads", desc = "Downloads" },
+
+  # ── Copy / move the selection (or hovered file) to fixed folders ──
+  { on = [ "y", "y" ], run = "yank",                         desc = "Yank" },
+  { on = [ "y", "h" ], run = [ "yank", "tab_create ~", "paste", "tab_close" ], desc = "Copy to ~" },
+  { on = [ "y", "b" ], run = [ "yank", "tab_create ~/Dropbox", "paste", "tab_close" ], desc = "Copy to Dropbox" },
+  { on = [ "y", "d" ], run = [ "yank", "tab_create ~/Documents", "paste", "tab_close" ], desc = "Copy to Documents" },
+  { on = [ "y", "D" ], run = [ "yank", "tab_create ~/Downloads", "paste", "tab_close" ], desc = "Copy to Downloads" },
+  { on = [ "x", "x" ], run = "yank --cut",                         desc = "Cut" },
+  { on = [ "x", "h" ], run = [ "yank --cut", "tab_create ~", "paste", "tab_close" ], desc = "Move to ~" },
+  { on = [ "x", "b" ], run = [ "yank --cut", "tab_create ~/Dropbox", "paste", "tab_close" ], desc = "Move to Dropbox" },
+  { on = [ "x", "d" ], run = [ "yank --cut", "tab_create ~/Documents", "paste", "tab_close" ], desc = "Move to Documents" },
+  { on = [ "x", "D" ], run = [ "yank --cut", "tab_create ~/Downloads", "paste", "tab_close" ], desc = "Move to Downloads" },
+
+  # ── Marks (vim-style, not persisted) ──
+  { on = "m",          run = "plugin bookmarks -- save",       desc = "Set mark" },
+  { on = "'",          run = "plugin bookmarks -- jump",       desc = "Jump to mark" },
+  { on = [ "b", "d" ], run = "plugin bookmarks -- delete",     desc = "Delete mark" },
+  { on = [ "b", "D" ], run = "plugin bookmarks -- delete_all", desc = "Delete all marks" },
+
+  # ── Linemode ──
+  { on = [ "=", "c" ], run = "linemode size_mtime",  desc = "Linemode: size + mtime" },
+  { on = [ "=", "s" ], run = "linemode size",        desc = "Linemode: size" },
+  { on = [ "=", "m" ], run = "linemode mtime",       desc = "Linemode: mtime" },
+  { on = [ "=", "b" ], run = "linemode btime",       desc = "Linemode: btime" },
+  { on = [ "=", "p" ], run = "linemode permissions", desc = "Linemode: permissions" },
+  { on = [ "=", "o" ], run = "linemode owner",       desc = "Linemode: owner" },
+  { on = [ "=", "n" ], run = "linemode none",        desc = "Linemode: none" },
+
+  # ── Sorting (does not change the linemode) ──
+  { on = [ ",", "m" ], run = "sort mtime --reverse=no",  desc = "Sort by modified time" },
+  { on = [ ",", "M" ], run = "sort mtime --reverse=yes", desc = "Sort by modified time (reverse)" },
+  { on = [ ",", "b" ], run = "sort btime --reverse=no",  desc = "Sort by birth time" },
+  { on = [ ",", "B" ], run = "sort btime --reverse=yes", desc = "Sort by birth time (reverse)" },
+  { on = [ ",", "s" ], run = "sort size --reverse=no",   desc = "Sort by size" },
+  { on = [ ",", "S" ], run = "sort size --reverse=yes",  desc = "Sort by size (reverse)" },
+
+  # ── Delete / cut ──
+  { on = [ "d", "d" ], run = "yank --cut",                 desc = "Cut" },
+  { on = "D",          run = "remove",                     desc = "Trash" },
+  { on = [ "d", "D" ], run = "remove --permanently",       desc = "Delete permanently" },
+  { on = [ "d", "f" ], run = "shell --block -- vim -d %s", desc = "Diff selected files in vim" },
+  { on = [ "d", "u" ], run = "plugin restore",             desc = "Restore last trashed" },
+
+  # ── Paste ──
+  { on = [ "p", "p" ], run = "paste",           desc = "Paste" },
+  { on = [ "p", "o" ], run = "paste --force",   desc = "Paste, overwrite" },
+  { on = [ "p", "l" ], run = "link",            desc = "Paste as symlink" },
+  { on = [ "p", "L" ], run = "link --relative", desc = "Paste as relative symlink" },
+  { on = [ "p", "h" ], run = "hardlink",        desc = "Paste as hardlink" },
+
+  # ── Rename (bulk when several files are selected) ──
+  { on = "I",          run = "rename --cursor=start",      desc = "Rename, cursor at start" },
+  { on = "A",          run = "rename --cursor=end",        desc = "Rename, cursor at end" },
+  { on = [ "c", "w" ], run = "rename --cursor=before_ext", desc = "Rename, cursor before extension" },
+
+  # ── Open with a typed command ──
+  { on = "W",     run = "plugin open-with-cmd",          desc = "Open with command" },
+  { on = "<A-w>", run = "plugin open-with-cmd -- block", desc = "Open with command, in the terminal" },
+
+  # ── Edit ──
+  { on = "E", run = 'shell --block -- ${EDITOR:-vim} %h', desc = "Edit hovered file in $EDITOR" },
+
+  # ── Visual mode: jump to the other end of the selection ──
+  { on = "o", run = "plugin visual-pivot", desc = "Move cursor to the other end of the selection" },
+
+  # ── chmod ──
+  { on = [ "+", "x" ], run = "shell -- chmod +x %s", desc = "chmod +x" },
+  { on = [ "+", "r" ], run = "shell -- chmod +r %s", desc = "chmod +r" },
+  { on = [ "+", "w" ], run = "shell -- chmod +w %s", desc = "chmod +w" },
+  { on = [ "-", "x" ], run = "shell -- chmod -x %s", desc = "chmod -x" },
+  { on = [ "-", "r" ], run = "shell -- chmod -r %s", desc = "chmod -r" },
+  { on = [ "-", "w" ], run = "shell -- chmod -w %s", desc = "chmod -w" },
+  { on = [ "c", "m" ], run = "plugin chmod",         desc = "chmod (prompt, e.g. 755)" },
+
+  # ── Archives ──
+  { on = [ "e", "e" ], run = "shell -- ouch d -y %s", desc = "Extract" },
+  { on = [ "e", "f" ], run = "shell -- ouch d -y %s", desc = "Extract" },
+  { on = "C",          run = "plugin ouch",           desc = "Compress (format from the extension typed)" },
+
+  # ── Drives ──
+  { on = "M", run = "plugin mount", desc = "Mount manager (m mount, u unmount, e eject)" },
+  # Unmounts and powers off the disk holding the current directory; only acts on /run/media, /media or /mnt.
+  { on = [ "e", "d" ], run = 'shell --block -- m=$(findmnt -n -o TARGET --target "$PWD"); case "$m" in /run/media/*|/media/*|/mnt/*) dev=$(findmnt -n -o SOURCE "$m"); ya emit cd ~; cd ~; sleep 1; udisksctl unmount -b "$dev" && udisksctl power-off -b "/dev/$(lsblk -no pkname "$dev")";; *) echo "Not on a removable mount: $m";; esac; printf "Press enter"; read _', desc = "Eject current disk" },
+
+  # ── rsync to a remote target (prompts for user@host:path) ──
+  { on = "R", run = "plugin rsync -- --remember", desc = "Copy with rsync" },
+
+  # ── Misc ──
+  { on = "X",        run = 'shell --block -- vim -p ~/.config/yazi/yazi.toml ~/.config/yazi/keymap.toml ~/.config/yazi/theme.toml ~/.config/yazi/init.lua', desc = "Edit yazi config" },
+  { on = "<Insert>", run = "quit", desc = "Quit" },
+
+  # ── Relative motions: digits start a count (10j, 25gg); the plugin reads further digits ──
+  { on = "1", run = "plugin relative-motions -- 1", desc = "Move in relative steps" },
+  { on = "2", run = "plugin relative-motions -- 2", desc = "Move in relative steps" },
+  { on = "3", run = "plugin relative-motions -- 3", desc = "Move in relative steps" },
+  { on = "4", run = "plugin relative-motions -- 4", desc = "Move in relative steps" },
+  { on = "5", run = "plugin relative-motions -- 5", desc = "Move in relative steps" },
+  { on = "6", run = "plugin relative-motions -- 6", desc = "Move in relative steps" },
+  { on = "7", run = "plugin relative-motions -- 7", desc = "Move in relative steps" },
+  { on = "8", run = "plugin relative-motions -- 8", desc = "Move in relative steps" },
+  { on = "9", run = "plugin relative-motions -- 9", desc = "Move in relative steps" },
+]

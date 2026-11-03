@@ -101,8 +101,7 @@ alias gs="git status"
 alias gc="git commit -m"
 alias gl="git log --show-notes='*' --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias rezsh="source ~/.zshrc"
-alias r="ranger"
-alias sr="sudo ranger"
+alias r="y"
 alias o="xdg-open @0 >/dev/null 2>&1"
 alias pi="ping 8.8.8.8"
 alias di="nvim -d"
@@ -142,33 +141,29 @@ bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
  
 # }}}
-# Ranger cd {{{
+# Yazi cd {{{
 function zle-line-init zle-keymap-select {
     # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
     zle reset-prompt
 }
 
-function ranger-cd {
-    tempfile=$(mktemp)
-    \ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
-    test -f "$tempfile" &&
-    if [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-        # With zoxide, we can't use '--' to deal with folders starting with a dash, but zoxide seems to deal fine without this
-        # cd -- "$(cat "$tempfile")"
-        cd "$(cat "$tempfile")"
-    fi
-    rm -f -- "$tempfile"
+function y() {
+    local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    command yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+    command rm -f -- "$tmp"
 }
 
-function carry-ranger-cd {
-    ranger-cd
+function carry-yazi-cd {
+    y
     zle accept-line
 }
 
-zle -N carry-ranger-cd
-bindkey '^E' carry-ranger-cd
-bindkey '^[[2~' carry-ranger-cd
+zle -N carry-yazi-cd
+bindkey '^E' carry-yazi-cd
+bindkey '^[[2~' carry-yazi-cd
 
 zle -N zle-line-init
 zle -N zle-keymap-select

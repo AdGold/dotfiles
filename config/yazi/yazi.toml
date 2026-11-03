@@ -1,0 +1,34 @@
+# ~/.config/yazi/yazi.toml  (targets yazi 26.x)
+
+[mgr]
+scrolloff      = 8
+sort_by        = "natural"
+sort_dir_first = true
+# linemode-plus: item count / size, then modified time
+linemode       = "size_mtime"
+
+[plugin]
+prepend_fetchers = [
+  # git status markers
+  { group = "git", url = "*",  run = "git" },
+  { group = "git", url = "*/", run = "git" },
+]
+prepend_previewers = [
+  # archive contents
+  { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch" },
+  # audio tags and cover art (needs exiftool)
+  { mime = "audio/*", run = "exifaudio" },
+  # ELF / EXE metadata (needs exiftool)
+  { mime = "*executable*", run = "exiftool" },
+]
+
+[opener]
+# Opening an archive lists its contents; extraction is on `ee` / `ef`.
+archive_ls = [
+  { run = 'ouch list "$@" | less -R', block = true, desc = "List archive contents", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", use = [ "archive_ls", "extract" ] },
+]

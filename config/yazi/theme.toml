@@ -1,0 +1,6 @@
+# ~/.config/yazi/theme.toml
+# Dracula flavor, installed with: ya pkg add yazi-rs/flavors:dracula
+
+[flavor]
+dark  = "dracula"
+light = "dracula"
