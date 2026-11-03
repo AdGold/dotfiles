@@ -11,10 +11,10 @@ prepend_keymap = [
   { on = "<C-n>",  run = "arrow 1",  desc = "Move cursor down" },
   { on = "<C-p>",  run = "arrow -1", desc = "Move cursor up" },
 
-  # ── Remote servers (sftp, see vfs.toml) ──
-  { on = [ "g", "a" ], run = "cd sftp://adrian-server", desc = "adrian-server" },
-  { on = [ "g", "e" ], run = "cd sftp://elwood-server", desc = "elwood-server" },
-  { on = [ "g", "w" ], run = "cd sftp://adrian-web",    desc = "adrian-web" },
+  # ── Remote servers (sshfs mounts; mount first with `Mm`) ──
+  { on = [ "g", "a" ], run = "cd ~/mnt/adrian-server", desc = "adrian-server" },
+  { on = [ "g", "e" ], run = "cd ~/mnt/elwood-server", desc = "elwood-server" },
+  { on = [ "g", "w" ], run = "cd ~/mnt/adrian-web",    desc = "adrian-web" },
 
   # ── Jumps (defaults kept: gh home, gc ~/.config, gt trash) ──
   { on = [ "g", "/" ], run = "cd /",           desc = "Root" },
@@ -102,7 +102,11 @@ prepend_keymap = [
   { on = "C",          run = "plugin ouch",           desc = "Compress (format from the extension typed)" },
 
   # ── Drives ──
-  { on = "M", run = "plugin mount", desc = "Mount manager (m mount, u unmount, e eject)" },
+  { on = [ "M", "M" ], run = "plugin mount",           desc = "Disk mount manager (m mount, u unmount, e eject)" },
+  { on = [ "M", "s" ], run = "plugin sshfs -- menu",   desc = "SSHFS menu" },
+  { on = [ "M", "m" ], run = "plugin sshfs -- mount --jump", desc = "SSHFS mount and jump" },
+  { on = [ "M", "u" ], run = "plugin sshfs -- unmount", desc = "SSHFS unmount" },
+  { on = [ "M", "t" ], run = "plugin sshfs -- terminal", desc = "SSH terminal on a mounted host" },
   # Unmounts and powers off the disk holding the current directory; only acts on /run/media, /media or /mnt.
   { on = [ "e", "d" ], run = 'shell --block -- m=$(findmnt -n -o TARGET --target "$PWD"); case "$m" in /run/media/*|/media/*|/mnt/*) dev=$(findmnt -n -o SOURCE "$m"); ya emit cd ~; cd ~; sleep 1; udisksctl unmount -b "$dev" && udisksctl power-off -b "/dev/$(lsblk -no pkname "$dev")";; *) echo "Not on a removable mount: $m";; esac; printf "Press enter"; read _', desc = "Eject current disk" },
 

@@ -6,11 +6,41 @@ require("linemode-plus"):setup { date_mode = "default" }
 -- Disk space meter in the status bar
 require("sduf"):setup()
 
+-- SSHFS: mount hosts from ~/.ssh/config under ~/mnt
+require("sshfs"):setup({ default_mount_point = "home" })
+
 -- Git status markers (fetchers are set in yazi.toml)
 require("git"):setup()
 
 -- Relative line numbers and vim-style counts (3j, 12k, 10gg)
 require("relative-motions"):setup({ show_numbers = "relative", show_motion = true })
+
+-- Redraw the relative-number column on top of the list, without the hover highlight
+-- and with a blank cell on the hovered row.
+do
+  local redraw = Current.redraw
+  function Current:redraw()
+    local r = redraw(self)
+    local files = self._folder.window
+    local hovered
+    for i, f in ipairs(files) do
+      if f.is_hovered then hovered = i break end
+    end
+    if not hovered or type(r) ~= "table" then return r end
+
+    local digits = #tostring(#self._folder.files)
+    local lines = {}
+    for i = 1, #files do
+      lines[i] = ui.Line(i == hovered and string.rep(" ", digits + 1)
+        or string.format(" %" .. digits .. "d", math.abs(hovered - i)))
+    end
+    local a = self._area
+    local area = ui.Rect { x = a.x, y = a.y, w = digits + 1, h = math.min(#files, a.h) }
+    r[#r + 1] = ui.Clear(area)
+    r[#r + 1] = ui.Text(lines):area(area)
+    return r
+  end
+end
 
 -- Marks: m<key> sets, '<key> jumps, '' returns to the previous directory. Not persisted.
 require("bookmarks"):setup({

@@ -7,6 +7,9 @@ sort_dir_first = true
 # linemode-plus: item count / size, then modified time
 linemode       = "size_mtime"
 
+[preview]
+image_delay = 100
+
 [plugin]
 prepend_fetchers = [
   # git status markers
@@ -14,6 +17,9 @@ prepend_fetchers = [
   { group = "git", url = "*/", run = "git" },
 ]
 prepend_previewers = [
+  # m4a/m4b are often detected as video/mp4, which sends them to ffmpeg; treat them as audio
+  { url = "*.m4a", run = "exifaudio" },
+  { url = "*.m4b", run = "exifaudio" },
   # archive contents
   { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch" },
   # audio tags and cover art (needs exiftool)
@@ -22,13 +28,28 @@ prepend_previewers = [
   { mime = "*executable*", run = "exiftool" },
 ]
 
+prepend_preloaders = [
+  # skip ffmpeg thumbnails for m4a/m4b
+  { url = "*.m4a", run = "noop" },
+  { url = "*.m4b", run = "noop" },
+]
+
 [opener]
 # Opening an archive lists its contents; extraction is on `ee` / `ef`.
+mpv = [
+  { run = 'mpv --force-window "$@"', orphan = true, for = "unix", desc = "mpv" },
+]
+vlc = [
+  { run = 'vlc "$@"', orphan = true, for = "unix", desc = "VLC" },
+]
 archive_ls = [
   { run = 'ouch list "$@" | less -R', block = true, desc = "List archive contents", for = "unix" },
 ]
 
 [open]
 prepend_rules = [
+  { url = "*.m4a", use = [ "vlc" ] },
+  { url = "*.m4b", use = [ "vlc" ] },
+  { mime = "{video,audio}/*", use = [ "mpv" ] },
   { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", use = [ "archive_ls", "extract" ] },
 ]
