@@ -1,0 +1,79 @@
+[[plugin.deps]]
+use = "barbanevosa/linemode-plus"
+rev = "4d0d034"
+hash = "5d0ac26725d9a975bef1d0887374f10e"
+
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "a603d9e"
+hash = "e02a788e5b8ae0fb47fd0193dda589cc"
+
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "9ef1254"
+hash = "92fbb5483657fa7976cdf4e0104e18e0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "25d992d"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "25d992d"
+hash = "dbfc342600993eefbb055bff145fa22a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "25d992d"
+hash = "87472b05a8c420100f6a2b9cde1e7746"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:visual-pivot"
+rev = "25d992d"
+hash = "11e7b50ca963cc9a7779ddccd217ab7e"
+
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "864dd05"
+hash = "3070b579618c4831f5d7ca4293c1c275"
+
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "596b666"
+hash = "c2f4f4aca257dcceafa9e3b828dbf1c9"
+
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "4506f9d"
+hash = "4761fffb60a12d37096c34a356380cdf"
+
+[[plugin.deps]]
+use = "AleMenon/exiftool"
+rev = "4c35573"
+hash = "44ef03e4d7151fa4094dd6b87a553033"
+
+[[plugin.deps]]
+use = "shafayetejaman/sduf"
+rev = "f43ba4a"
+hash = "5f9b8fcd37fc225437a213c9674a0ffa"
+
+[[plugin.deps]]
+use = "Ape/open-with-cmd"
+rev = "56705e2"
+hash = "7c84fff414a652c86c44523dbb08026f"
+
+[[plugin.deps]]
+use = "GianniBYoung/rsync"
+rev = "b5c657a"
+hash = "72828957273094ed0ef52792e3290900"
+
+[[plugin.deps]]
+use = "uhs-robert/sshfs"
+rev = "2113cf6"
+hash = "5f540c20805d1a73eea68c12e410d890"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:dracula"
+rev = "1183892"
+hash = "40136c9a02e166067a36d9ad618887f2"
