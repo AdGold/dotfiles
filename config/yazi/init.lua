@@ -6,8 +6,20 @@ require("linemode-plus"):setup { date_mode = "default" }
 -- Disk space meter in the status bar
 require("sduf"):setup()
 
--- SSHFS: mount hosts from ~/.ssh/config under ~/mnt
-require("sshfs"):setup({ default_mount_point = "home" })
+-- SSHFS: mount hosts from ~/.ssh/config under $XDG_RUNTIME_DIR/sshfs (nothing in the home folder).
+-- Same directory and options as the g-a/e/w/u jump keys, so both share mounts.
+require("sshfs"):setup({
+  mount_dir = (os.getenv("XDG_RUNTIME_DIR") or "/tmp") .. "/sshfs",
+  default_mount_point = "home",
+  sshfs_options = {
+    "reconnect",
+    "ConnectTimeout=5",
+    "compression=yes",
+    "ServerAliveInterval=15",
+    "ServerAliveCountMax=3",
+    "follow_symlinks", -- show what server-side symlinks point to instead of broken local links
+  },
+})
 
 -- Git status markers (fetchers are set in yazi.toml)
 require("git"):setup()

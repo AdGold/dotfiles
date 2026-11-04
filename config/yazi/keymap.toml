@@ -3,6 +3,13 @@
 
 [mgr]
 prepend_keymap = [
+  { on = [ "g", "a" ], run = 'shell -- h=adrian-server; d="${XDG_RUNTIME_DIR:-/tmp}/sshfs/$h"; mkdir -p "$d"; if ! mountpoint -q "$d"; then p=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$h" "readlink -f \$HOME 2>/dev/null || echo \$HOME"); err=$(sshfs "$h:$p" "$d" -o BatchMode=yes,reconnect,ConnectTimeout=5,compression=yes,ServerAliveInterval=15,ServerAliveCountMax=3,follow_symlinks 2>&1) || { rmdir "$d"; notify-send -u critical "sshfs: $h" "$err"; exit 1; }; fi; ya emit cd "$d"', desc = "adrian-server (sshfs)" },
+  { on = [ "g", "e" ], run = 'shell -- h=elwood-server; d="${XDG_RUNTIME_DIR:-/tmp}/sshfs/$h"; mkdir -p "$d"; if ! mountpoint -q "$d"; then p=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$h" "readlink -f \$HOME 2>/dev/null || echo \$HOME"); err=$(sshfs "$h:$p" "$d" -o BatchMode=yes,reconnect,ConnectTimeout=5,compression=yes,ServerAliveInterval=15,ServerAliveCountMax=3,follow_symlinks 2>&1) || { rmdir "$d"; notify-send -u critical "sshfs: $h" "$err"; exit 1; }; fi; ya emit cd "$d"', desc = "elwood-server (sshfs)" },
+  { on = [ "g", "w" ], run = 'shell -- h=adrian-web; d="${XDG_RUNTIME_DIR:-/tmp}/sshfs/$h"; mkdir -p "$d"; if ! mountpoint -q "$d"; then p=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$h" "readlink -f \$HOME 2>/dev/null || echo \$HOME"); err=$(sshfs "$h:$p" "$d" -o BatchMode=yes,reconnect,ConnectTimeout=5,compression=yes,ServerAliveInterval=15,ServerAliveCountMax=3,follow_symlinks 2>&1) || { rmdir "$d"; notify-send -u critical "sshfs: $h" "$err"; exit 1; }; fi; ya emit cd "$d"', desc = "adrian-web (sshfs)" },
+  { on = [ "g", "u" ], run = 'shell -- h=euclid; d="${XDG_RUNTIME_DIR:-/tmp}/sshfs/$h"; mkdir -p "$d"; if ! mountpoint -q "$d"; then p=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$h" "readlink -f \$HOME 2>/dev/null || echo \$HOME"); err=$(sshfs "$h:$p" "$d" -o BatchMode=yes,reconnect,ConnectTimeout=5,compression=yes,ServerAliveInterval=15,ServerAliveCountMax=3,follow_symlinks 2>&1) || { rmdir "$d"; notify-send -u critical "sshfs: $h" "$err"; exit 1; }; fi; ya emit cd "$d"', desc = "euclid (sshfs)" },
+  { on = [ "g", "S" ], run = "plugin sshfs -- menu", desc = "SSHFS menu (mount, unmount, terminal, hosts)" },
+  { on = "M", run = "plugin mount", desc = "Mount manager (m mount, u unmount, e eject)" },
+
   # ── Cursor movement without wraparound ──
   { on = "j",      run = "arrow 1",  desc = "Move cursor down" },
   { on = "k",      run = "arrow -1", desc = "Move cursor up" },
@@ -12,9 +19,6 @@ prepend_keymap = [
   { on = "<C-p>",  run = "arrow -1", desc = "Move cursor up" },
 
   # ── Remote servers (sshfs mounts; mount first with `Mm`) ──
-  { on = [ "g", "a" ], run = "cd ~/mnt/adrian-server", desc = "adrian-server" },
-  { on = [ "g", "e" ], run = "cd ~/mnt/elwood-server", desc = "elwood-server" },
-  { on = [ "g", "w" ], run = "cd ~/mnt/adrian-web",    desc = "adrian-web" },
 
   # ── Jumps (defaults kept: gh home, gc ~/.config, gt trash) ──
   { on = [ "g", "/" ], run = "cd /",           desc = "Root" },
@@ -102,11 +106,6 @@ prepend_keymap = [
   { on = "C",          run = "plugin ouch",           desc = "Compress (format from the extension typed)" },
 
   # ── Drives ──
-  { on = [ "M", "M" ], run = "plugin mount",           desc = "Disk mount manager (m mount, u unmount, e eject)" },
-  { on = [ "M", "s" ], run = "plugin sshfs -- menu",   desc = "SSHFS menu" },
-  { on = [ "M", "m" ], run = "plugin sshfs -- mount --jump", desc = "SSHFS mount and jump" },
-  { on = [ "M", "u" ], run = "plugin sshfs -- unmount", desc = "SSHFS unmount" },
-  { on = [ "M", "t" ], run = "plugin sshfs -- terminal", desc = "SSH terminal on a mounted host" },
   # Unmounts and powers off the disk holding the current directory; only acts on /run/media, /media or /mnt.
   { on = [ "e", "d" ], run = 'shell --block -- m=$(findmnt -n -o TARGET --target "$PWD"); case "$m" in /run/media/*|/media/*|/mnt/*) dev=$(findmnt -n -o SOURCE "$m"); ya emit cd ~; cd ~; sleep 1; udisksctl unmount -b "$dev" && udisksctl power-off -b "/dev/$(lsblk -no pkname "$dev")";; *) echo "Not on a removable mount: $m";; esac; printf "Press enter"; read _', desc = "Eject current disk" },
 
