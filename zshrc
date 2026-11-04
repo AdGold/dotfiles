@@ -60,7 +60,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 export PATH="$HOME/opt/:$PATH"
 export PATH="$HOME/.scripts/:$PATH"
 if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
+  PATH="$HOME/.fzf/bin${PATH:+:${PATH}}"
 fi
 # }}}
 # Completion styling
