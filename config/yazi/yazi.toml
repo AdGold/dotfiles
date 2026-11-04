@@ -53,3 +53,6 @@ prepend_rules = [
   { mime = "{video,audio}/*", use = [ "mpv" ] },
   { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", use = [ "archive_ls", "extract" ] },
 ]
+
+[tasks]
+suppress_preload = true
