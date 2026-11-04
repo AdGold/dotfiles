@@ -62,7 +62,7 @@ prepend_keymap = [
   { on = [ "d", "d" ], run = "yank --cut",                 desc = "Cut" },
   { on = "D",          run = "remove",                     desc = "Trash" },
   { on = [ "d", "D" ], run = "remove --permanently",       desc = "Delete permanently" },
-  { on = [ "d", "f" ], run = "shell --block -- vim -d %s", desc = "Diff selected files in vim" },
+  { on = [ "d", "f" ], run = "shell --block -- nvim -d %s", desc = "Diff selected files in vim" },
   { on = [ "d", "u" ], run = "plugin restore",             desc = "Restore last trashed" },
 
   # ── Paste ──
@@ -114,7 +114,7 @@ prepend_keymap = [
   { on = "R", run = "plugin rsync -- --remember", desc = "Copy with rsync" },
 
   # ── Misc ──
-  { on = "X",        run = 'shell --block -- vim -p ~/.config/yazi/yazi.toml ~/.config/yazi/keymap.toml ~/.config/yazi/theme.toml ~/.config/yazi/init.lua', desc = "Edit yazi config" },
+  { on = "X",        run = 'shell --block -- nvim -p ~/.config/yazi/yazi.toml ~/.config/yazi/keymap.toml ~/.config/yazi/theme.toml ~/.config/yazi/init.lua', desc = "Edit yazi config" },
   { on = "<Insert>", run = "quit", desc = "Quit" },
 
   # ── Relative motions: digits start a count (10j, 25gg); the plugin reads further digits ──
