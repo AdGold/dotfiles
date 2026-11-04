@@ -1,0 +1,15 @@
+[sftp.adrian-server]
+host = "adrian-server"
+user = "adrian"
+port = 22
+
+[sftp.elwood-server]
+host = "elwood-server"
+user = "adrian"
+port = 22
+
+[sftp.adrian-web]
+host = "diagonalrewards.com"
+user = "adrian"
+port = 22
+
