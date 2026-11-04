@@ -76,3 +76,18 @@ ps.sub("cd", function()
     ya.emit("sort", saved_sort)
   end
 end)
+
+-- Header: user@host, swapped for the server alias while inside an sshfs mount ($XDG_RUNTIME_DIR/sshfs/<alias>)
+local mnt = (os.getenv("XDG_RUNTIME_DIR") or "/tmp") .. "/sshfs/"
+Header:children_add(function()
+  local ok, alias = pcall(function()
+    local cwd = tostring(cx.active.current.cwd)
+    return cwd:sub(1, #mnt) == mnt and cwd:sub(#mnt + 1):match("^[^/]+") or nil
+  end)
+  if ok and alias then
+    return ui.Span(alias .. ": "):fg("red"):bold()
+  end
+  local user = ya.user_name() or os.getenv("USER") or ""
+  local host = ya.host_name() or os.getenv("HOSTNAME") or ""
+  return ui.Span(user .. "@" .. host .. ": "):fg("blue")
+end, 500, Header.LEFT)
