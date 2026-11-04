@@ -23,20 +23,8 @@ return {
     lazy = false,
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      local lspconfig = require("lspconfig")
-       lspconfig.tsserver.setup({
-         capabilities = capabilities
-       })
-       lspconfig.pyright.setup({
-        capabilities = capabilities
-      })
-       lspconfig.html.setup({
-         capabilities = capabilities
-       })
-       lspconfig.lua_ls.setup({
-         capabilities = capabilities
-       })
+      vim.lsp.config('*', { capabilities = capabilities })
+      vim.lsp.enable({ 'ts_ls', 'pyright', 'html', 'lua_ls' })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
