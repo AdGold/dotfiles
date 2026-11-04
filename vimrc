@@ -193,12 +193,10 @@ autocmd BufWinEnter *.* silent loadview
 " }}}
 " Undo settings {{{
 " Configure persistent undo
+silent! call mkdir(expand('~/.vim/undo'), 'p')
 if has('persistent_undo')
-    " Enable/disable saving of undo history to an undo file
     set undofile
-
-    " Directories to try for reading/writing undo files
-    set undodir^=~/.vim/undo//
+    set undodir=~/.vim/undo//
 endif
 
 " Make 'U' perform a redo operation (a sensible inverse of 'u')

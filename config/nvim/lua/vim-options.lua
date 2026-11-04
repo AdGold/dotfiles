@@ -122,10 +122,11 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 	end,
 })
 
--- Undo settings
+-- Undo settings: always write to a fixed directory, never to '.'
+vim.fn.mkdir(vim.fn.expand("~/.vim/undo"), "p")
 if vim.fn.has("persistent_undo") == 1 then
 	vim.opt.undofile = true
-	vim.opt.undodir:append("~/.vim/undo//")
+	vim.opt.undodir = { vim.fn.expand("~/.vim/undo//") }
 end
 vim.keymap.set("n", "U", "<C-r>", { noremap = true })
 
