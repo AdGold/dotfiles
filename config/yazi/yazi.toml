@@ -40,19 +40,17 @@ prepend_preloaders = [
 [opener]
 # Opening an archive lists its contents; extraction is on `ee` / `ef`.
 mpv = [
-  { run = 'mpv --force-window "$@"', orphan = true, for = "unix", desc = "mpv" },
+  { run = 'mpv --force-window %s', orphan = true, for = "unix", desc = "mpv" },
 ]
 vlc = [
-  { run = 'vlc "$@"', orphan = true, for = "unix", desc = "VLC" },
+  { run = 'vlc %s', orphan = true, for = "unix", desc = "VLC" },
 ]
 archive_ls = [
-  { run = 'ouch list "$@" | less -R', block = true, desc = "List archive contents", for = "unix" },
+  { run = 'ouch list %s | less -R', block = true, desc = "List archive contents", for = "unix" },
 ]
 
 [open]
 prepend_rules = [
-  { url = "*.m4a", use = [ "vlc" ] },
-  { url = "*.m4b", use = [ "vlc" ] },
   { mime = "{video,audio}/*", use = [ "mpv" ] },
   { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", use = [ "archive_ls", "extract" ] },
 ]
