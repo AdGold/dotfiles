@@ -149,8 +149,18 @@ function zle-line-init zle-keymap-select {
 }
 
 function y() {
-    local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    command yazi "$@" --cwd-file="$tmp"
+    local tmp cwd cfg src f; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    if [ -n "$SSH_CONNECTION" ]; then
+        # Over ssh the terminal receives raw pixels for each preview; use a smaller size.
+        src="${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}"
+        cfg="${XDG_RUNTIME_DIR:-/tmp}/yazi-ssh-$(id -u)"
+        mkdir -p "$cfg"
+        for f in "$src"/*; do [ "${f##*/}" = yazi.toml ] || ln -sfn "$f" "$cfg/${f##*/}"; done
+        sed -E 's/^(max_width[[:space:]]*=[[:space:]]*)[0-9]+/\1320/; s/^(max_height[[:space:]]*=[[:space:]]*)[0-9]+/\1480/' "$src/yazi.toml" > "$cfg/yazi.toml"
+        YAZI_CONFIG_HOME="$cfg" command yazi "$@" --cwd-file="$tmp"
+    else
+        command yazi "$@" --cwd-file="$tmp"
+    fi
     IFS= read -r -d '' cwd < "$tmp"
     [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
     command rm -f -- "$tmp"
